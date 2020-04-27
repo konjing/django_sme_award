@@ -26,7 +26,7 @@ SECRET_KEY = 'ipn107xcp%j7-bn0wazd=mkx&-4ci=akjigvd^8tols4t^p!1j'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['thawing-waters-76099.herokuapp.com']
 
 
 # Application definition
