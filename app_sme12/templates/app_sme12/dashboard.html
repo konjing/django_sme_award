@@ -1,0 +1,403 @@
+{% extends 'app_backend/base.html' %}
+{% load static %}
+
+{% block styles %}
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="{% static 'adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  
+{% endblock %}
+
+{% block headcontent %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Dash Board</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock%}
+
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box">
+                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>
+  
+                <div class="info-box-content">
+                  <span class="info-box-text">ภาคการผลิต</span>
+                  <span class="info-box-number">150 ราย</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-thumbs-up"></i></span>
+  
+                <div class="info-box-content">
+                  <span class="info-box-text">ภาคบริการ ค้าส่ง หรือค้าปลีก</span>
+                  <span class="info-box-number">220 ราย</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+  
+            <!-- fix for small devices only -->
+            <div class="clearfix hidden-md-up"></div>
+  
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+  
+                <div class="info-box-content">
+                  <span class="info-box-text">ธุรกิจเกษตร</span>
+                  <span class="info-box-number">120 ราย</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-12 col-sm-6 col-md-3">
+              <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                  <div class="info-box-content">
+                  <span class="info-box-text">รวมทั้งหมด</span>
+                  <span class="info-box-number">490 ราย</span>
+                </div>
+                <!-- /.info-box-content -->
+              </div>
+              <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-8">            
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">เปรียบเทียบเป้าหมายที่ตั้งไว้</h5>
+  
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-tool dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-wrench"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right" role="menu" >
+                        <a href="#" class="dropdown-item">Action</a>
+                        <a href="#" class="dropdown-item">Another action</a>
+                        <a href="#" class="dropdown-item">Something else here</a>
+                        <a class="dropdown-divider"></a>
+                        <a href="#" class="dropdown-item">Separated link</a>
+                      </div>
+                    </div>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <p class="text-center">
+                        <strong>1 มกรา, 2020 - 30 มิถุนายน, 2020</strong>
+                      </p>
+  
+                      <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                        <!-- Sales Chart Canvas -->
+                        <canvas id="salesChart" height="180" style="height: 180px; display: block; width: 681px;" width="681" class="chartjs-render-monitor"></canvas>
+                      </div>
+                      <!-- /.chart-responsive -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-md-4">
+                      <p class="text-center">
+                        <strong>เป้าหมายผู้สมัคร</strong>
+                      </p>
+  
+                      <div class="progress-group">
+                        ภาคการผลิต
+                        <span class="float-right"><b>150</b>/300</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-primary" style="width: 50%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+  
+                      <div class="progress-group">
+                        ภาคบริการ ค้าส่ง หรือค้าปลีก
+                        <span class="float-right"><b>220</b>/300</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-danger" style="width: 75%"></div>
+                        </div>
+                      </div>
+  
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        <span class="progress-text">ธุรกิจเกษตร</span>
+                        <span class="float-right"><b>120</b>/300</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-success" style="width: 40%"></div>
+                        </div>
+                      </div>
+  
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        รวมทุกกลุ่ม
+                        <span class="float-right"><b>490</b>/900</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-warning" style="width: 55%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                    </div>
+                    <!-- /.col -->
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- ./card-body -->
+                <div class="card-footer">
+                  <div class="row">
+                    <div class="col-sm-3 col-6">
+                      <div class="description-block border-right">
+                        <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 17%</span> -->
+                        <h5 class="description-header">490 ราย</h5>
+                        <span class="description-text">ผู้สมัครทั้งหมด</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 col-6">
+                      <div class="description-block border-right">
+                        <!-- <span class="description-percentage text-warning"><i class="fas fa-caret-left"></i> 0%</span> -->
+                        <h5 class="description-header">900 ราย</h5>
+                        <span class="description-text">ผู้สมัครตามเป้าหมาย</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 col-6">
+                      <div class="description-block border-right">
+                        <!-- <span class="description-percentage text-success"><i class="fas fa-caret-up"></i> 20%</span> -->
+                        <h5 class="description-header">410 ราย</h5>
+                        <span class="description-text">เป้าหมาย - ผู้สมัครจริง</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 col-6">
+                      <div class="description-block">
+                        <!-- <span class="description-percentage text-danger"><i class="fas fa-caret-down"></i> 18%</span> -->
+                        <h5 class="description-header">55 %</h5>
+                        <span class="description-text">คิดเป็น</span>
+                      </div>
+                      <!-- /.description-block -->
+                    </div>
+                  </div>
+                  <!-- /.row -->
+                </div>
+                <!-- /.card-footer -->
+              </div>
+              <!-- /.card -->
+              <div class="card">
+                <div class="card-header border-0">
+                  <div class="d-flex justify-content-between">
+                    <h3 class="card-title">เปรียบเทียบปีที่แล้ว</h3>
+                    <!-- <a href="javascript:void(0);">View Report</a> -->
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="d-flex">
+                    <p class="d-flex flex-column">
+                      <span class="text-bold text-lg">ผู้สมัคร(ราย)</span>
+                      <!-- <span>Sales Over Time</span> -->
+                    </p>
+                    <p class="ml-auto d-flex flex-column text-right">
+                      <span class="text-success">
+                        <i class="fas fa-arrow-up"></i> 20.4%
+                      </span>
+                      <span class="text-muted">การประกวดครั้งก่อน</span>
+                    </p>
+                  </div>
+                  <!-- /.d-flex -->
+  
+                  <div class="position-relative mb-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="sales-chart" height="200" style="display: block; width: 487px; height: 200px;" width="487" class="chartjs-render-monitor"></canvas>
+                  </div>
+  
+                  <div class="d-flex flex-row justify-content-end">
+                    <span class="mr-2">
+                      <i class="fas fa-square text-primary"></i> ครั้งที่ 14
+                    </span>  
+                    <span>
+                      <i class="fas fa-square text-gray"></i> ครั้งที่ 13
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card -->
+            </div>
+            <div class="col-md-4">
+                <!-- /.info-box -->
+                <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">สัดส่วนตามกลุ่มผู้สมัคร</h3>
+      
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="chart-responsive"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                            <canvas id="pieChart" height="99" width="199" class="chartjs-render-monitor" style="display: block; width: 199px; height: 99px;"></canvas>
+                          </div>
+                          <!-- ./chart-responsive -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-4">
+                          <ul class="chart-legend clearfix">
+                            <li><i class="far fa-circle text-danger"></i> ธุรกิจอาหาร</li>
+                            <li><i class="far fa-circle text-success"></i> ธุรกิจสิ่งทอ</li>
+                            <li><i class="far fa-circle text-warning"></i> ธุรกิจค้าปลีก</li>
+                            <li><i class="far fa-circle text-info"></i> ธุรกิจค้าส่ง</li>
+                            <li><i class="far fa-circle text-primary"></i> ธุรกิจการเกษตร</li>
+                            <li><i class="far fa-circle text-secondary"></i> อื่นๆ</li>
+                          </ul>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer bg-white p-0">
+                      <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                          <a href="#" class="nav-link">
+                            ภาคการผลิต
+                            <span class="float-right text-danger">
+                              <i class="fas fa-arrow-down text-sm"></i>
+                              12%</span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="#" class="nav-link">
+                            ภาคบริการ ค้าส่ง หรือค้าปลีก
+                            <span class="float-right text-success">
+                              <i class="fas fa-arrow-up text-sm"></i> 4%
+                            </span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="#" class="nav-link">
+                            ธุรกิจเกษตร
+                            <span class="float-right text-warning">
+                              <i class="fas fa-arrow-left text-sm"></i> 0%
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- /.footer -->
+                </div>
+                <!-- /.card -->
+                <div class="info-box mb-3 bg-warning">
+                    <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">ตรวจสอบคุณสมบัติ</span>
+                      <span class="info-box-number">490</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-success">
+                    <span class="info-box-icon"><i class="far fa-heart"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">ตรวจประเมินเบื้องต้น</span>
+                      <span class="info-box-number">450</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-danger">
+                    <span class="info-box-icon"><i class="fas fa-cloud-download-alt"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">สัมภาษณ์ไป Site visit</span>
+                      <span class="info-box-number">200</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-info">
+                    <span class="info-box-icon"><i class="far fa-comment"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">Site visit</span>
+                      <span class="info-box-number">100</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+                <div class="info-box mb-3 bg-secondary">
+                    <span class="info-box-icon"><i class="far fa-comment"></i></span>
+      
+                    <div class="info-box-content">
+                      <span class="info-box-text">สรุปผ่านเกณฑ์แต่ละกลุ่ม</span>
+                      <span class="info-box-number">80</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </div>
+</section>
+{% endblock%}
+
+{% block scripts %}
+<!-- overlayScrollbars -->
+<script src="{% static 'adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- OPTIONAL SCRIPTS -->
+<script src="{% static 'adminlte/dist/js/demo.js' %}"></script>
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src="{% static 'adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js' %}"></script>
+<script src="{% static 'adminlte/plugins/raphael/raphael.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/jquery-mapael/jquery.mapael.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/jquery-mapael/maps/usa_states.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'adminlte/plugins/chart.js/Chart.min.js' %}"></script>
+
+<!-- PAGE SCRIPTS -->
+<script src="{% static 'adminlte/dist/js/pages/dashboard2.js' %}"></script>
+<script src="{% static 'adminlte/dist/js/pages/dashboard3.js' %}"></script>
+{% endblock %}

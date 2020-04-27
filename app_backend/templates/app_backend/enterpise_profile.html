@@ -1,0 +1,559 @@
+{% extends "app_backend/base.html" %}
+{% load static %}
+
+{% block styles %}
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  
+{% endblock %}
+
+
+{% block headcontent %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">SME Profile</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock%}
+
+
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                  <div class="card-body box-profile">
+                    <div class="text-center">
+                      <img class="profile-user-img img-fluid img-circle" src="{% static 'adminlte/dist/img/busines-logo.jpg' %}" alt="User profile picture">
+                    </div>    
+                    <h3 class="profile-username text-center">บริษัท เจริญดี จำกัด</h3>
+                    <p class="text-muted text-center">กลุ่มการเกษตร</p>    
+                    <ul class="list-group list-group-unbordered mb-3">
+                      <li class="list-group-item">
+                        <b>จำนวนพนักงาน</b> <a class="float-right">122 คน</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>ทุนจดทะเบียน</b> <a class="float-right">5,000,000 บาท</a>
+                      </li>
+                      <li class="list-group-item">
+                        <b>รหัสสมาชิก สสว.</b> <a class="float-right">10700XXX</a>
+                      </li>
+                    </ul>    
+                    <a href="#" class="btn btn-primary btn-block"><b>Link Website</b></a>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+    
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">ข้อมูลผู้สมัคร</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">                        
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> ที่ตั้ง</strong>    
+                    <p class="text-muted">กรุงเทพ, บางพลัด 10700</p>    
+                    <hr>    
+                    <strong><i class="fas fa-pencil-alt mr-1"></i> สินค้าหรือบริการ</strong>    
+                    <p class="text-muted">
+                      <span class="tag tag-danger">ออกแบบ</span>
+                      <span class="tag tag-success">ติดตั้ง</span>
+                      <span class="tag tag-info">ผลิต</span>
+                      <span class="tag tag-warning">ซ่อมบำรุง</span>
+                      <span class="tag tag-primary">ให้คำปรึกษา</span>
+                    </p>    
+                    <hr>    
+                    <strong><i class="far fa-file-alt mr-1"></i> บันทึก</strong>    
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="card">
+                  <div class="card-header p-2">
+                    <ul class="nav nav-pills">
+                      <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">ข้อมูล</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">เอกสาร</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">แก้ไขข้อมูล</a></li>
+                      <li class="nav-item"><a class="nav-link" href="#note" data-toggle="tab">ประวัติ/บันทึก</a></li>
+                      </ul>
+                  </div><!-- /.card-header -->
+                  <div class="card-body">
+                    <div class="tab-content">
+                      <div class="active tab-pane" id="activity">
+                        <!-- Post -->
+                        <div class="post">
+                          <div class="user-block">
+                            <!-- <img class="img-circle img-bordered-sm" src="{% static 'adminlte/dist/img/user1-128x128.jpg' %}" alt="user image"> -->
+                            <span class="username">
+                              <strong><i class="fas fa-book mr-1"></i> เกี่ยวกับบริษัท</strong>  
+                              
+                            </span>
+                            <!-- <span class="description">Shared publicly - 7:30 PM today</span> -->
+                          </div>
+                          <!-- /.user-block -->
+                          <p>
+                            Lorem ipsum represents a long-held tradition for designers,
+                            typographers and the like. Some people hate it and argue for
+                            its demise, but others ignore the hate as they create awesome
+                            tools to help create filler text for everyone from bacon lovers
+                            to Charlie Sheen fans.
+                            <br>
+                            Lorem ipsum represents a long-held tradition for designers,
+                            typographers and the like. Some people hate it and argue for
+                            its demise, but others ignore the hate as they create awesome
+                            tools to help create filler text for everyone from bacon lovers
+                            to Charlie Sheen fans.
+                            <br>
+                            Lorem ipsum represents a long-held tradition for designers,
+                            typographers and the like. Some people hate it and argue for
+                            its demise, but others ignore the hate as they create awesome
+                            tools to help create filler text for everyone from bacon lovers
+                            to Charlie Sheen fans.
+                          </p>
+    
+                          <!-- <p>
+                            <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                            <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                            <span class="float-right">
+                              <a href="#" class="link-black text-sm">
+                                <i class="far fa-comments mr-1"></i> Comments (5)
+                              </a>
+                            </span>
+                          </p>
+    
+                          <input class="form-control form-control-sm" type="text" placeholder="Type a comment"> -->
+                        </div>
+                        <!-- /.post -->
+                           
+    
+                        <!-- Post -->
+                        <div class="post">
+                          <div class="user-block">
+                            <!-- <img class="img-circle img-bordered-sm" src="{% static 'adminlte/dist/img/user6-128x128.jpg' %}" alt="User Image"> -->
+                            <span class="username">
+                              รูปภาพ
+                              <a href="#" class="float-right btn-tool"><i class="fas fa-times"></i></a>
+                            </span>
+                            <span class="description">Posted 5 photos - 5 days ago</span>
+                          </div>
+                          <!-- /.user-block -->
+                          <div class="row mb-3">
+                            <div class="col-sm-6">
+                              <img class="img-fluid" src="{% static 'adminlte/dist/img/photo1.png' %}" alt="Photo">
+                            </div>
+                            <!-- /.col -->
+                            <div class="col-sm-6">
+                              <div class="row">
+                                <div class="col-sm-6">
+                                  <img class="img-fluid mb-3" src="{% static 'adminlte/dist/img/photo2.png' %}" alt="Photo">
+                                  <img class="img-fluid" src="{% static 'adminlte/dist/img/photo3.jpg' %}" alt="Photo">
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-sm-6">
+                                  <img class="img-fluid mb-3" src="{% static 'adminlte/dist/img/photo4.jpg' %}" alt="Photo">
+                                  <img class="img-fluid" src="{% static 'adminlte/dist/img/photo1.png' %}" alt="Photo">
+                                </div>
+                                <!-- /.col -->
+                              </div>
+                              <!-- /.row -->
+                            </div>
+                            <!-- /.col -->
+                          </div>
+                          <!-- /.row -->
+    
+                          <p>
+                            <a href="#" class="link-black text-sm mr-2"><i class="fas fa-share mr-1"></i> Share</a>
+                            <a href="#" class="link-black text-sm"><i class="far fa-thumbs-up mr-1"></i> Like</a>
+                            <span class="float-right">
+                              <a href="#" class="link-black text-sm">
+                                <i class="far fa-comments mr-1"></i> Comments (5)
+                              </a>
+                            </span>
+                          </p>
+    
+                          <input class="form-control form-control-sm" type="text" placeholder="Type a comment">
+                        </div>
+                        <!-- /.post -->
+                      </div>
+                      <!-- /.tab-pane -->
+                      <div class="tab-pane" id="timeline">
+                        <!-- The timeline -->
+                        <div class="timeline timeline-inverse">
+                          
+                          <!-- timeline time label -->
+                          <div class="time-label">
+                            <span class="bg-success">
+                              3 มกราคม 2020
+                            </span>
+                          </div>
+                          <!-- /.timeline-label -->
+                          <!-- timeline item -->
+                          <div>
+                            <i class="fas fa-camera bg-purple"></i>
+    
+                            <div class="timeline-item">
+                              <span class="time"><i class="far fa-clock"></i> 2 days ago</span>
+    
+                              <h3 class="timeline-header"> เอกสารต่างๆ</h3>
+    
+                              <div class="timeline-body">
+                                <img src="http://placehold.it/150x100" alt="...">
+                                <img src="http://placehold.it/150x100" alt="...">
+                                <img src="http://placehold.it/150x100" alt="...">
+                                <img src="http://placehold.it/150x100" alt="...">
+                              </div>
+                            </div>
+                          </div>
+                          <!-- END timeline item -->
+                          <div>
+                            <i class="far fa-clock bg-gray"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /.tab-pane -->    
+                      <div class="tab-pane" id="settings">
+                        <form class="form-horizontal">
+                          <div class="form-group row">
+                            <label for="inputName" class="col-sm-2 col-form-label">ชื่อบริษัท</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" id="inputName" placeholder="Name">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputEmail" class="col-sm-2 col-form-label">Email บริษัท</label>
+                            <div class="col-sm-10">
+                              <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputName2" class="col-sm-2 col-form-label">ชื่อผู้ติดต่อ</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputExperience" class="col-sm-2 col-form-label">เบอร์ผู้ติดต่อ</label>
+                            <div class="col-sm-10">
+                              <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                            </div>
+                          </div>                          
+                          <!-- <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                              <div class="checkbox">
+                                <label>
+                                  <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
+                                </label>
+                              </div>
+                            </div>
+                          </div> -->
+                          <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-10">
+                              <button type="submit" class="btn btn-danger">แก้ไขข้อมูล</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <!-- /.tab-pane -->
+                      <div class="tab-pane" id="note">
+                        <div class="card">
+                          <div class="card-header">
+                            <h3 class="card-title">บันทึก</h3>                  
+                            <div class="card-tools">
+                              <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                <i class="fas fa-minus"></i></button>
+                              <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                                <i class="fas fa-times"></i></button>
+                            </div>
+                          </div>
+                          <div class="card-body p-0">
+                            <table class="table table-striped projects">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 1%">
+                                            #
+                                        </th>
+                                        <th style="width: 20%">
+                                            หัวข้อ
+                                        </th>
+                                        <th style="width: 30%">
+                                            ผู้เกี่ยวข้อง
+                                        </th>
+                                        <th>
+                                            ความคืบหน้า
+                                        </th>
+                                        <th style="width: 8%" class="text-center">
+                                            สถานะ
+                                        </th>
+                                        <th style="width: 20%">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            #
+                                        </td>
+                                        <td>
+                                            <a>
+                                                โครงการ #1
+                                            </a>
+                                            <br>
+                                            <small>
+                                                สร้าง 01.01.2019
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar2.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar3.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar04.png' %}">
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td class="project_progress">
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
+                                                </div>
+                                            </div>
+                                            <small>
+                                                57% Complete
+                                            </small>
+                                        </td>
+                                        <td class="project-state">
+                                            <span class="badge badge-success">Success</span>
+                                        </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            #
+                                        </td>
+                                        <td>
+                                            <a>
+                                              โครงการ #2
+                                            </a>
+                                            <br>
+                                            <small>
+                                                Created 01.01.2019
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar2.png' %}">
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td class="project_progress">
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar bg-green" role="progressbar" aria-volumenow="47" aria-volumemin="0" aria-volumemax="100" style="width: 47%">
+                                                </div>
+                                            </div>
+                                            <small>
+                                                47% Complete
+                                            </small>
+                                        </td>
+                                        <td class="project-state">
+                                            <span class="badge badge-success">Success</span>
+                                        </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            #
+                                        </td>
+                                        <td>
+                                            <a>
+                                              โครงการ #3
+                                            </a>
+                                            <br>
+                                            <small>
+                                                Created 01.01.2019
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar2.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar3.png' %}">
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td class="project_progress">
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar bg-green" role="progressbar" aria-volumenow="77" aria-volumemin="0" aria-volumemax="100" style="width: 77%">
+                                                </div>
+                                            </div>
+                                            <small>
+                                                77% Complete
+                                            </small>
+                                        </td>
+                                        <td class="project-state">
+                                            <span class="badge badge-success">Success</span>
+                                        </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            #
+                                        </td>
+                                        <td>
+                                            <a>
+                                              โครงการ #4
+                                            </a>
+                                            <br>
+                                            <small>
+                                                Created 01.01.2019
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <ul class="list-inline">
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar2.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar3.png' %}">
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar04.png' %}">
+                                                </li>
+                                            </ul>
+                                        </td>
+                                        <td class="project_progress">
+                                            <div class="progress progress-sm">
+                                                <div class="progress-bar bg-green" role="progressbar" aria-volumenow="60" aria-volumemin="0" aria-volumemax="100" style="width: 60%">
+                                                </div>
+                                            </div>
+                                            <small>
+                                                60% Complete
+                                            </small>
+                                        </td>
+                                        <td class="project-state">
+                                            <span class="badge badge-success">Success</span>
+                                        </td>
+                                        <td class="project-actions text-right">
+                                            <a class="btn btn-primary btn-sm" href="#">
+                                                <i class="fas fa-folder">
+                                                </i>
+                                                View
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="#">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Edit
+                                            </a>
+                                            <a class="btn btn-danger btn-sm" href="#">
+                                                <i class="fas fa-trash">
+                                                </i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>                                                                      
+                                </tbody>
+                            </table>
+                          </div>
+                          <!-- /.card-body -->
+                        </div>
+                      </div>
+                      <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                  </div><!-- /.card-body -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'adminlte/dist/js/demo.js' %}"></script>
+
+{% endblock %}

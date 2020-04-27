@@ -1,0 +1,170 @@
+{% extends 'app_backend/base.html' %}
+{% load static %}
+
+
+{% block styles %}
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+{% endblock %}
+
+{% block headcontent %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Site visit</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock%}
+
+{% block content %}
+    <section class="content">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3>150 ราย</h3>
+                <p>ภาคการผลิต</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-industry"></i>
+              </div>
+              <a href="#" class="small-box-footer"></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>53 ราย</h3>
+                <p>ภาคบริการ ค้าส่ง หรือค้าปลีก</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <a href="#" class="small-box-footer"></i></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>44 ราย</h3>
+                <p>ธุรกิจเกษตร</p>
+              </div>
+              <div class="icon">
+                <i class="fas fa-tractor"></i>
+              </div>
+              <a href="#" class="small-box-footer"></a>
+            </div>
+          </div>
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>247 ราย</h3>
+                <p>รวมทุกกลุ่ม</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+              </div>
+              <a href="#" class="small-box-footer"></a>
+            </div>
+          </div>
+          <!-- ./col -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+            <form action="" method="POST">
+            {% csrf_token %}
+              <div class="card-header">
+                <div class="btn-group">
+                  <button type="submit" class="btn btn-block btn-primary">ผ่านการประเมิน</button>
+                </div>
+                <!-- <div class="btn-group">
+                  <button type="submit" class="btn btn-block btn-warning">ไม่ผ่านการตรวจ</button>
+                </div>                             -->
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th></th>  
+                    <th>ประเภทรางวัล</th>
+                    <th>บริษัทย์</th>   
+                    <th>รหัส สสว.</th>                    
+                    <th>รหัส SME CONNEXT</th>                 
+                    <th>สถานะ</th>
+                    <th>form</th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for register in queryset %}
+                  <tr>
+                    <td><input type="checkbox"  name="regis_id" value="{{ register.id }}" ></td>  
+                    <td>{{ register.competition }}</td>
+                    <td><a href="{% url 'profile' %}">{{ register.enterpise }}</a></td> 
+                    <td>{{ register.sme_code }}</td>
+                    <td>{{ register.sme_connext_code }}</td>                   
+                    <td>{{ register.state }}</td>
+                    <td>{{ register.form_register }}</td>
+                    <td><a href="#">Info</a></td>
+                  </tr> 
+                  {% endfor %}                 
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th></th>  
+                    <th class="filter">ประเภทรางวัล</th>
+                    <th class="filter">บริษัทย์</th>   
+                    <th class="filter">รหัส สสว.</th>                    
+                    <th class="filter">รหัส SME CONNEXT</th>                 
+                    <th class="filter">สถานะ</th>
+                    <th>form</th>
+                    <th></th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </form>
+            </div>            
+            <!-- /.card -->  
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </section>
+
+{% endblock%}
+
+
+{% block scripts %}
+<!-- DataTables -->
+<script src="{% static 'adminlte/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<!-- page script -->
+<script src="{% static 'app_sme12/js/evaluate_list.js' %}"></script>
+{% endblock %}
