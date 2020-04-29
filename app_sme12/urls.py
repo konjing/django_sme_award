@@ -10,5 +10,7 @@ urlpatterns = [
     path('candidate-list/', views.candidateListView, name='candidate-list'),
     path('dashboard-sme/', views.dashboardView, name='dashboard-sme'),
 
-    path('register-wizard/', views.registerTestView, name='register-wizard'),
+    path('ajax/load-amphur/', views.load_amphur, name='ajax_load_amphur'),
+    path('ajax/load-tumbol/', views.load_tumbol, name='ajax_load_tumbol'),
+    path('ajax/load-busgroup/', views.load_businessgroup, name='ajax_load_busgroup'),
 ]

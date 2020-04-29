@@ -1,0 +1,6 @@
+<option value="">---------</option>
+{% for amphur in amphur_list %}
+<option value="{{ amphur.pk }}" data-postcode={{ amphur.postcode }} >{{ amphur.name }}</option>
+{% endfor %}
+
+

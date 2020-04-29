@@ -1,4 +1,13 @@
 $(document).ready(function () {
+
+  $("div.bus_model_etc1").hide()
+  $("div.bus_model_etc2").hide()
+  $("div.juristic_id").hide()
+  $("div.card_id").hide()
+  $("div.regis_number").hide()
+  $("div.commercial_regis_number").hide()
+  
+
   // smart wizard
   $("#smartwizard").smartWizard({
     theme: "",
@@ -17,15 +26,6 @@ $(document).ready(function () {
     }
   });
 
-  // แสดงข้อความหลังกดปุ่มบันทึกแล้วผ่านการตรวจสอบ
-  $.validator.setDefaults({
-    submitHandler: function () {
-      alert("ลงข้อมูลเสร็จสิ้น");
-    },
-  });
-
-
-
   //// ------------ Select2
   $('.select2bs4').select2({
     theme: 'bootstrap4'
@@ -33,181 +33,146 @@ $(document).ready(function () {
 
   //// ------------ Input Mask 
   //Datemask dd/mm/yyyy
-  $('#id_ent_establish_date').inputmask('99-99-9999', { 'placeholder': 'วว-ดด-ปปปป' })
+  $('#id_ent_establish_date').inputmask('9999-99-99', { 'placeholder': 'ปปปป-ดด-วว' })
   $('#id_ent_postcode').inputmask("99999", { 'placeholder': ' ' });
   $('#id_ent_tel').inputmask('9 9999 9999', { 'placeholder': ' ' });
+  $('#id_ent_fax').inputmask('9 9999 9999', { 'placeholder': ' ' });
   $('#id_owner_card_id').inputmask('9 9999 99999 99 9', { 'placeholder': ' ' });
   $('#id_owner_postcode').inputmask("99999", { 'placeholder': ' ' });
   $('#id_owner_tel').inputmask('9 9999 9999', { 'placeholder': ' ' });
+  $('#id_owner_fax').inputmask('9 9999 9999', { 'placeholder': ' ' });
   $('#id_owner_mobile').inputmask('99 9999 9999', { 'placeholder': ' ' });
+  $('#id_contact_tel').inputmask('99 9999 9999', { 'placeholder': ' ' });
 
-  //// ------------ Validation 
-  // ตรวจสอบการลงข้อมูล
-  $("#registerSme").validate({
-    rules: {
-      ent_name: {
-        required: true,
-        // minlength: 5,
-      },    
-      ent_establish_date: {
-        required: true,
-      },      
-      ent_address_no: {
-        required: true,
-      },
-      ent_amphur: {
-        required: true,
-      },
-      ent_province: {
-        required: true,
-      },
-      ent_postcode: {
-        required: true,
-      },
-      ent_tel: {
-        required: true,
-      },
-      ent_email: {
-        required: true,
-        email: true,
-      },      
-      owner_name: {
-        required: true,
-      },
-      owner_card_id: {
-        required: true,
-      },
-      owner_address_no: {
-        required: true,
-      },
-      owner_tumbol: {
-        required: true,
-      },
-      owner_amphur: {
-        required: true,
-      },
-      owner_province: {
-        required: true,
-      },
-      owner_postcode: {
-        required: true,
-      },
-      owner_tel: {
-        required: true,
-      },
-      owner_mobile: {
-        required: true,
-      },
-      owner_email: {
-        required: true,
-        email: true,
-      },
-      business_model: {
-        required: true,
-      },
-      contact_name: {
-        required: true,
-      },
-      contact_position: {
-        required: true,
-      },
-      contact_tel: {
-        required: true,
-      },
-      contact_email: {
-        required: true,
-        email:true
-      },  
+  
+//////////////  Dependent/Chained Dropdown List Provice, Amphur, BusinessGroup
+//////////////  Provice
+  $("#id_ent_province").change(function () {
+    var url = $("#registerSme").attr("data-amphur-url");  // get the url of the `load_amphur` view
+    var provinceId = $(this).val();  // get the selected province ID from the HTML input
 
-    },
-    messages: {
-      ent_name: {
-        required: "ต้องระบุชื่อสถานประกอบการ",
-        // minlength: "Please enter name more tahn 5 ",
-      },         
-      ent_establish_date: {
-        required: "ต้องระบุวันที่จัดตั้งกิจการ",
-      },  
-      ent_address_no: {
-        required: "ต้องระบุเลขที่",
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/sme12/ajax/load-amphur/)
+      data: {
+        'province': provinceId       // add the province id to the GET parameters
       },
-      ent_amphur: {
-        required: "ต้องระบุอำเภอ",
-      },
-      ent_province: {
-        required: "ต้องระบุจังหวัด",
-      },
-      ent_postcode: {
-        required: "ต้องระบุรหัสไปรษณีย์",
-      },  
-      ent_tel: {
-        required: "ต้องระบุหมายเลขโทรศัพท์",
-      },
-      ent_email: {
-        required: "ต้องระบุอีเมล",
-        email: "รูปแบบอีเมลไม่ถูกต้อง",
-      },
-      owner_name: {
-        required: "ต้องระบุชื่อ",
-      },
-      owner_card_id: {
-        required: "ต้องระบุเลขบัตรประชาชน",
-      },
-      owner_address_no: {
-        required: "ต้องระบุเลขที่",
-      },
-      owner_tumbol: {
-        required: "ต้องระบุตำบล",
-      },
-      owner_amphur: {
-        required: "ต้องระบุอำเภอ",
-      },
-      owner_province: {
-        required: "ต้องระบุจังหวัด",
-      },
-      owner_postcode: {
-        required: "ต้องระบุรหัสไปรษณีย์",
-      },
-      owner_tel: {
-        required: "ต้องระบุเบอร์โทรศัพท์",
-      },
-      owner_mobile: {
-        required: "ต้องระบุเบอร์มือถือ",
-      },
-      owner_email: {
-        required: "ต้องระบุอีเมล",
-        email: "รูปแบบอีเมลไม่ถูกต้อง",
-      },
-      business_model: {
-        required: "ต้องเลือกรูปแบบการจัดตั้งกิจการ",
-      },
-      contact_name: {
-        required: "ต้องระบุชื่อ นามสกุล",
-      },
-      contact_position: {
-        required: "ต้องระบุตำแหน่ง",
-      },
-      contact_tel: {
-        required: "ต้องระบุหมายเลขโทรศัพท์",
-      },
-      contact_email: {
-        required: "ต้องระบุอีเมล",
-        email: "รูปแบบอีเมลไม่ถูกต้อง"
-      },
-      // terms: "Please accept our terms",
-    },
-
-    // Show validation fail messages
-    errorElement: "span",
-    errorPlacement: function (error, element) {
-      error.addClass("invalid-feedback");
-      element.closest(".form-group").append(error);
-    },
-    highlight: function (element, errorClass, validClass) {
-      $(element).addClass("is-invalid");
-    },
-    unhighlight: function (element, errorClass, validClass) {
-      $(element).removeClass("is-invalid");
-    },
+      success: function (data) {   // `data` is the return of the `load_amphur` view function
+        $("#id_ent_amphur").html(data);  // replace the contents of the amphur input with the data that came from the server
+      }
+    });
   });
+//////////////  Amphur
+  $("#id_ent_amphur").change(function () {
+    var url = $("#registerSme").attr("data-tumbol-url");  // get the url of the `load_tumbol` view
+    var amphurId = $(this).val();  // get the selected amphur ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/sme12/ajax/load-tumbol/)
+      data: {
+        'amphur': amphurId       // add the amphur id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_tumbol` view function
+        $("#id_ent_tumbol").html(data);  // replace the contents of the tumbol input with the data that came from the server
+      }
+    });
+
+    var postcode = $("#id_ent_amphur option:selected").data("postcode");
+    // alert(postcode)
+    $("#id_ent_postcode").val(postcode)
+  });
+//////////////  Provice
+  $("#id_owner_province").change(function () {
+    var url = $("#registerSme").attr("data-amphur-url");  // get the url of the `load_amphur` view
+    var provinceId = $(this).val();  // get the selected province ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/sme12/ajax/load-amphur/)
+      data: {
+        'province': provinceId       // add the province id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_amphur` view function
+        $("#id_owner_amphur").html(data);  // replace the contents of the amphur input with the data that came from the server
+      }
+    });
+  });
+//////////////  Amphur
+  $("#id_owner_amphur").change(function () {
+    var url = $("#registerSme").attr("data-tumbol-url");  // get the url of the `load_tumbol` view
+    var amphurId = $(this).val();  // get the selected amphur ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/sme12/ajax/load-tumbol/)
+      data: {
+        'amphur': amphurId       // add the amphur id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_tumbol` view function
+        $("#id_owner_tumbol").html(data);  // replace the contents of the tumbol input with the data that came from the server
+      }
+    });
+
+    var postcode = $("#id_owner_amphur option:selected").data("postcode");
+    // alert(postcode)
+    $("#id_owner_postcode").val(postcode)
+
+  });
+//////////////  BusinessGroup
+  $("#id_business_type").change(function () {
+    var url = $("#registerSme").attr("data-busgroup-url");  // get the url of the `load_businessgroup` view
+    var bustypeId = $(this).val();  // get the selected business_type ID from the HTML input
+
+    $.ajax({                       // initialize an AJAX request
+      url: url,                    // set the url of the request (= localhost:8000/sme12/ajax/load-busgroup/)
+      data: {
+        'business_type': bustypeId       // add the business id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_businessgroup` view function
+        $("#id_business_group").html(data);  // replace the contents of the businessgroup input with the data that came from the server
+      }
+    });
+  });
+///////////////////////////////////////////////////////////////////////////////
+
+  ////// 1.3 รูปแบบการจัดตั้งกิจการ 
+  $("#id_business_model").change(function () {  
+    var businessmodelGroup = $("#id_business_model option:selected").data("model-group");
+    var businesscode = $("#id_business_model option:selected").data("model-code"); // get the selected business_model code from the HTML input
+    // alert(businessmodelGroup);
+
+    if (businesscode == '104') {
+      $(".bus_model_etc1").show();
+      $(".bus_model_etc2").hide();
+      return true;
+    } else if (businesscode == '304') {
+      $(".bus_model_etc1").hide();
+      $(".bus_model_etc2").show();
+      return true; 
+    } else {
+      $(".bus_model_etc1").hide();
+      $(".bus_model_etc2").hide();
+    }
+
+    if (businessmodelGroup == '1') {
+      $("div.juristic_id").show()
+      $("div.card_id").hide()
+      $("div.regis_number").hide()
+      $("div.commercial_regis_number").hide()
+      return true;
+    } else if (businessmodelGroup == '2') {
+      $("div.juristic_id").hide()
+      $("div.card_id").show()
+      $("div.regis_number").hide()
+      $("div.commercial_regis_number").show()
+      return true; 
+    } else {
+      $("div.juristic_id").hide()
+      $("div.card_id").hide()
+      $("div.regis_number").show()
+      $("div.commercial_regis_number").hide()
+    }
+
+
+    
+  });
+
+
 });

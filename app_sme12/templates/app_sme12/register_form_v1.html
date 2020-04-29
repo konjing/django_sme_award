@@ -59,6 +59,24 @@
                                 <div class="row">
                                     <div class="col-md-6">                        
                                         <div class="form-group row">
+                                            <label for="{{ form.regis_code.id_for_label }}" class="col-sm-4 col-form-label">{{ form.regis_code.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.regis_code class="form-control" placeholder="โปรดระบุ"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
+                                            <label for="" class="col-sm-4 col-form-label"></label>
+                                            <div class="col-sm-8">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
                                             <label for="{{ form.ent_name.id_for_label }}" class="col-sm-4 col-form-label">{{ form.ent_name.label }}</label>
                                             <div class="col-sm-8">
                                                 {% render_field form.ent_name class="form-control" placeholder="โปรดระบุ"%}

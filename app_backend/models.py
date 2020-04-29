@@ -46,14 +46,20 @@ class BusinessType(models.Model):
 
 
 class BusinessModel(models.Model):
+    GROUP = [
+        (1, 'นิติบุคคล'),
+        (2, 'บุคคลธรรมดา'),
+        (3, 'ได้รับการจดทะเบียน'),
+    ]
+
     name = models.CharField(verbose_name='รูปแบบการจัดตั้งกิจการ', max_length=200)
-    description = models.CharField(verbose_name='รายละเอียด', max_length=200,
-                                   null=True, blank=True)
+    code = models.CharField(verbose_name='รหัส', max_length=10, null=True, blank=True)
+    description = models.CharField(verbose_name='รายละเอียด', max_length=200, null=True, blank=True)
+    model_group = models.PositiveSmallIntegerField(verbose_name='นิติบุคคล/บุคคลธรรมดา', choices=GROUP, default=1)
     active = models.BooleanField(verbose_name='สถานะใช้งาน', default=True)
 
-
     def __str__(self):
-        return self.name
+        return '{} - {}'.format(self.model_group, self.name)
 
 
 class BusinessGroup(models.Model):
@@ -69,7 +75,7 @@ class BusinessGroup(models.Model):
        
 
 class Owner(models.Model):
-    name = models.CharField(verbose_name='ชื่อเจ้าของ', max_length=200, null=True, blank=True) 
+    name = models.CharField(verbose_name='ชื่อเจ้าของ', max_length=200) 
     card_id = models.CharField(verbose_name='เลขบัตรเจ้าของ', max_length=200, null=True, blank=True) 
     address_no = models.CharField(verbose_name='เลขที่', max_length=100, null=True, blank=True)
     mu = models.CharField(verbose_name='หมู่', max_length=100, null=True, blank=True)
@@ -125,7 +131,6 @@ class Enterpise(models.Model):
     business_type = models.ForeignKey(BusinessType, null=True, blank=True, on_delete=models.SET_NULL)
     business_group = models.ForeignKey(BusinessGroup, null=True, blank=True, on_delete=models.SET_NULL)
     business_group_etc = models.CharField(verbose_name='กลุ่มธุรกิจอื่นๆ', max_length=100, null=True, blank=True)
-
     product_info = models.TextField(verbose_name='ระบุสินค้า ยี่ห้อ และบริการโดยละเอียด', null=True, blank=True)
     material = models.TextField(verbose_name='วัตถุดิบในการผลิต', null=True, blank=True)
     otop = models.BooleanField(verbose_name='มีการผลิตสินค้า OTOP หรือไม่', null=True, blank=True)

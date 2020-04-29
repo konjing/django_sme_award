@@ -4,16 +4,25 @@ from app_backend.models import Enterpise, Competition
 
 # Create your models here.
 class FormRegister(models.Model):
-    regis_code = models.CharField(verbose_name='รหัสสมัคร', max_length=20, null=True, blank=True)
+    CHOICES = [
+        (1, 'สนใจเข้ารับการฝึกอบรมและเข้าร่วมประกวดรางวัล'),
+        (2, 'สนใจเฉพาะการเข้าร่วมประกวดรางวัล'),
+        (3, 'สนใจเข้ารับการฝึกอบรม'),
+    ]
+
+    regis_code = models.CharField(verbose_name='รหัสสมัคร', max_length=20)
     regis_name = models.CharField(verbose_name='ผู้สมัคร', max_length=200, null=True, blank=True)
     regis_date = models.DateField(verbose_name='วันที่สมัคร', null=True, blank=True)
     
     employ = models.CharField(verbose_name='จำนวนการจ้างงาน', max_length=100, null=True, blank=True)
     revenue = models.CharField(verbose_name='รายได้ต่อปี', max_length=100, null=True, blank=True)
+    
     profit = models.DecimalField(verbose_name='กำไร', max_digits=10, decimal_places=2, null=True, blank=True)
+    
     news_from = models.CharField(verbose_name='รับข่าวสารจากช่องทาง', max_length=100, null=True, blank=True)
     news_from_etc = models.CharField(verbose_name='รับข่าวสารจากช่องทางอื่นๆ', max_length=100, null=True, blank=True)
-    train_or_contest = models.CharField(verbose_name='เลือกอบรมหรือประกวด', max_length=100, null=True, blank=True)
+
+    join_choice = models.PositiveSmallIntegerField(verbose_name='เลือกอบรมหรือประกวด', choices=CHOICES, default=2)
     training_course = models.CharField(verbose_name='หลักสูตรอบรม', max_length=100, null=True, blank=True)
     trainee1_name = models.CharField(verbose_name='ชื่อผู้เข้าอบรมคนที่1', max_length=100, null=True, blank=True)
     trainee1_id_card = models.CharField(verbose_name='เลขบัตรประชาชนผู้เข้าอบรมคนที่1', max_length=100, null=True, blank=True)
@@ -73,6 +82,6 @@ class SmeCompetition(models.Model):
     def __str__(self):
         if self.enterpise.name==None:
             return "ERROR-CUSTOMER NAME IS NULL"
-        return self.enterpise.name      
+        return '{} - {}'.format(self.enterpise.name, self.competition.name)      
         
 
