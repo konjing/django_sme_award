@@ -123,7 +123,7 @@
                   <tr>
                     <td><input type="checkbox"  name="regis_id" value="{{ register.id }}" ></td>  
                     <td>{{ register.competition }}</td>
-                    <td><a href="{% url 'profile' %}">{{ register.enterpise }}</a></td>   
+                    <td><a href="{% url 'profile' %}">{{ register.enterpise.name }}</a></td>   
                     <td>{{ register.sme_code }}</td>
                     <td>{{ register.sme_connext_code }}</td>                 
                     <td>{{ register.state }}</td>

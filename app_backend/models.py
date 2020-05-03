@@ -1,8 +1,8 @@
 from django.db import models
 
 # Create your models here.
-
 class Region(models.Model):
+    """ ตารางภูมิภาค """
     name = models.CharField(verbose_name='ชื่อภูมิภาค', max_length=100)
 
     def __str__(self):
@@ -10,6 +10,7 @@ class Region(models.Model):
 
 
 class Province(models.Model):
+    """ ตารางจังหวัด """
     region = models.ForeignKey(Region, null=True, on_delete=models.SET_NULL)
     code = models.CharField(verbose_name='รหัสจังหวัด', max_length=20)
     name = models.CharField(verbose_name='ชื่อจังหวัด', max_length=100)
@@ -19,6 +20,7 @@ class Province(models.Model):
 
 
 class Amphur(models.Model):
+    """ ตารางอำเภอ """
     province = models.ForeignKey(Province, null=True, on_delete=models.SET_NULL)
     code = models.CharField(verbose_name='รหัสอำเภอ', max_length=20)
     name = models.CharField(verbose_name='ชื่ออำเภอ', max_length=100)
@@ -29,6 +31,7 @@ class Amphur(models.Model):
 
 
 class Tumbol(models.Model):
+    """ ตารางตำบล """
     amphur = models.ForeignKey(Amphur, null=True, on_delete=models.SET_NULL)
     code = models.CharField(verbose_name='รหัสตำบล', max_length=20)
     name = models.CharField(verbose_name='ชื่อตำบล', max_length=100)
@@ -37,15 +40,8 @@ class Tumbol(models.Model):
         return self.name
 
 
-class BusinessType(models.Model):
-    name = models.CharField(verbose_name='ประเภทธุรกิจ', max_length=200)
-    active = models.BooleanField(verbose_name='สถานะใช้งาน', default=True)
-
-    def __str__(self):
-        return self.name
-
-
 class BusinessModel(models.Model):
+    """ ตาราง ตัวเลือกรูปแบบการจัดตั้งกิจการ """
     GROUP = [
         (1, 'นิติบุคคล'),
         (2, 'บุคคลธรรมดา'),
@@ -62,7 +58,17 @@ class BusinessModel(models.Model):
         return '{} - {}'.format(self.model_group, self.name)
 
 
+class BusinessType(models.Model):
+    """ ตารางประเภทธุรกิจ """
+    name = models.CharField(verbose_name='ประเภทธุรกิจ', max_length=200)
+    active = models.BooleanField(verbose_name='สถานะใช้งาน', default=True)
+
+    def __str__(self):
+        return self.name
+
+
 class BusinessGroup(models.Model):
+    """ ตารางกลุ่มธุรกิจ """
     business_type = models.ForeignKey(BusinessType, null=True, on_delete=models.SET_NULL)
     name = models.CharField(verbose_name='กลุ่มธุรกิจ', max_length=200)
     etc_detail = models.CharField(verbose_name='รายละเอียดกลุ่มธุรกิจอื่นๆ', max_length=200,
@@ -75,6 +81,7 @@ class BusinessGroup(models.Model):
        
 
 class Owner(models.Model):
+    """ ตารางเจ้าของกิจการ/ผู้มีอานาจลงนามแทนกิจการ """
     name = models.CharField(verbose_name='ชื่อเจ้าของ', max_length=200) 
     card_id = models.CharField(verbose_name='เลขบัตรเจ้าของ', max_length=200, null=True, blank=True) 
     address_no = models.CharField(verbose_name='เลขที่', max_length=100, null=True, blank=True)
@@ -95,7 +102,7 @@ class Owner(models.Model):
 
 
 class Enterpise(models.Model):
-    
+    """ ตารางสถานประกอบการ """
     name = models.CharField(verbose_name='ชื่อสถานประกอบการ', max_length=200) 
     establish_date = models.DateField(verbose_name='วันก่อตั้งกิจการ', null=True, blank=True) 
     sme_code = models.CharField(verbose_name='รหัสสมาชิก สสว.', max_length=50, null=True, blank=True) 
@@ -135,13 +142,14 @@ class Enterpise(models.Model):
     material = models.TextField(verbose_name='วัตถุดิบในการผลิต', null=True, blank=True)
     otop = models.BooleanField(verbose_name='มีการผลิตสินค้า OTOP หรือไม่', null=True, blank=True)
 
-    regis_cap = models.DecimalField(verbose_name='ทุนจดทะเบียน', decimal_places=2, max_digits=10, null=True, blank=True)
+    # regis_cap = models.DecimalField(verbose_name='ทุนจดทะเบียน', decimal_places=2, max_digits=10, null=True, blank=True)
     
     def __str__(self):
         return self.name
 
 
 class Competition(models.Model):
+    """ ตารางรายการประกวด """
     name = models.CharField(verbose_name='ชื่อรางวัล', max_length=200)
     name_eng = models.CharField(verbose_name='ชื่อรางวัล eng', null=True, blank=True, max_length=200)
     active = models.BooleanField(verbose_name='สถานะใช้งาน', default=True)

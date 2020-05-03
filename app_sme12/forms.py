@@ -1,5 +1,6 @@
 from django import forms
 from app_backend.models import Province, Amphur, Tumbol, BusinessModel, BusinessGroup, BusinessType
+from app_sme12.models import Employment, Revenue, AuthorizeCapital, ProfitPrevious, Promote
 
 class RegistrationForm(forms.Form):
     regis_code = forms.CharField(label='เลขสมัคร', max_length=20)
@@ -54,16 +55,18 @@ class RegistrationForm(forms.Form):
     # business_group_etc = forms.CharField(label='กลุ่มธุรกิจอื่นๆ', max_length=100, required=False)
     product_info = forms.CharField(label='ระบุสินค้า ยี่ห้อ และบริการโดยละเอียด', widget=forms.Textarea, required=False)
     material = forms.CharField(label='วัตถุดิบในการผลิต', widget=forms.Textarea, required=False)
-    # otop = forms.BooleanField(label='มีการผลิตสินค้า OTOP หรือไม่', required=False)
+    otop = forms.BooleanField(label='มีการผลิตสินค้า OTOP หรือไม่', required=False)
 
-    # f_employ = forms.CharField(label='จำนวนการจ้างงาน', max_length=100, required=False)
-    # f_revenue = forms.CharField(label='รายได้ต่อปี', max_length=100, required=False)
+    f_employment = forms.ModelChoiceField(label='การจ้างงาน', queryset=Employment.objects.all(), empty_label='-- โปรดเลือก --')
+    f_employment_etc = forms.CharField(label='จำนวนจ้าง(คน)', max_length=10, required=False)
+    f_revenue = forms.ModelChoiceField(label='รายได้ต่อปี', queryset=Revenue.objects.all(), empty_label='-- โปรดเลือก --')
+    f_revenue_etc = forms.CharField(label='รายได้(บาท)', max_length=20, required=False)
     
-    # regis_cap = forms.DecimalField(label='ทุนจดทะเบียน/ทุนตั้งกิจการ(ปีที่เริ่มต้นกิจการ)', decimal_places=2, max_digits=10, required=False)
-    # f_profit = forms.DecimalField(label='กำไร (ณ สิ้นปีก่อนหน้า)', max_digits=10, decimal_places=2, required=False)
+    f_cap = forms.ModelChoiceField(label='ทุนจดทะเบียน', queryset=AuthorizeCapital.objects.all().order_by('code'), empty_label='-- โปรดเลือก --')
+    f_profit = forms.ModelChoiceField(label='กำไร(ณ สิ้นปีก่อนหน้า)', queryset=ProfitPrevious.objects.all().order_by('code'), empty_label='-- โปรดเลือก --')
 
-    # f_news_from = forms.CharField(label='รับข่าวสารจากช่องทาง', max_length=100, required=False)
-    # f_news_from_etc = forms.CharField(label='รับข่าวสารจากช่องทางอื่นๆ', max_length=100, required=False)
+    f_promote = forms.ModelMultipleChoiceField(label='รับข่าวสารจากช่องทาง', queryset=Promote.objects.filter(active=True) )
+    f_promote_etc = forms.CharField(label='รับข่าวสารจากช่องทางอื่นๆ', max_length=100, required=False)
 
     # f_join_choice = forms.IntegerField(label='เลือกอบรมหรือประกวด', required=False)
     # f_training_course = forms.CharField(label='หลักสูตรอบรม', max_length=100, required=False)

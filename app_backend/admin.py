@@ -20,6 +20,14 @@ admin.site.register(SmeCompetition)
 admin.site.register(FormRegister)
 admin.site.register(FormInterview)
 admin.site.register(FormSiteVisit)
+admin.site.register(Employment)
+admin.site.register(Revenue)
+admin.site.register(AuthorizeCapital)
+admin.site.register(ProfitPrevious)
+admin.site.register(Promote)
+admin.site.register(RegisChoice)
+admin.site.register(Course)
+
 
 # app_startup4 models here.
 admin.site.register(StartupCompetition)

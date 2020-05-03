@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for revenue in revenue_list %}
+<option value="{{ revenue.pk }}" data-code="{{ revenue.code }}">{{ revenue.business_type.name }} - {{ revenue.name }}</option>
+{% endfor %}

@@ -1,0 +1,4 @@
+<option value="">---------</option>
+{% for employment in employment_list %}
+<option value="{{ employment.pk }}" data-code="{{ employment.code }}">{{ employment.business_type.name }} - {{ employment.name }}</option>
+{% endfor %}

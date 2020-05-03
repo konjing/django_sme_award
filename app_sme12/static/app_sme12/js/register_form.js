@@ -6,6 +6,8 @@ $(document).ready(function () {
   $("div.card_id").hide()
   $("div.regis_number").hide()
   $("div.commercial_regis_number").hide()
+  $("div.employment_etc").hide()
+  $("div.revenue_etc").hide()
   
 
   // smart wizard
@@ -115,10 +117,13 @@ $(document).ready(function () {
     $("#id_owner_postcode").val(postcode)
 
   });
-//////////////  BusinessGroup
+//////////////  BusinessType ---> BusinessGroup, Employment, Revenue
   $("#id_business_type").change(function () {
-    var url = $("#registerSme").attr("data-busgroup-url");  // get the url of the `load_businessgroup` view
     var bustypeId = $(this).val();  // get the selected business_type ID from the HTML input
+    
+    var url = $("#registerSme").attr("data-busgroup-url");  // get the url of the `load_businessgroup` view
+    var url2 = $("#registerSme").attr("data-employment-url");  // get the url of the `load_employment` view
+    var url3 = $("#registerSme").attr("data-revenue-url");  // get the url of the `load_revenue` view
 
     $.ajax({                       // initialize an AJAX request
       url: url,                    // set the url of the request (= localhost:8000/sme12/ajax/load-busgroup/)
@@ -129,6 +134,27 @@ $(document).ready(function () {
         $("#id_business_group").html(data);  // replace the contents of the businessgroup input with the data that came from the server
       }
     });
+
+    $.ajax({                       // initialize an AJAX request
+      url: url2,                    // set the url of the request (= localhost:8000/sme12/ajax/load-employment/)
+      data: {
+        'business_type': bustypeId       // add the business_type id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_employment` view function
+        $("#id_f_employment").html(data);  // replace the contents of the employment input with the data that came from the server
+      }
+    });
+
+    $.ajax({                       // initialize an AJAX request
+      url: url3,                    // set the url of the request (= localhost:8000/sme12/ajax/load-revenue/)
+      data: {
+        'business_type': bustypeId       // add the business_type id to the GET parameters
+      },
+      success: function (data) {   // `data` is the return of the `load_revenue` view function
+        $("#id_f_revenue").html(data);  // replace the contents of the revenue input with the data that came from the server
+      }
+    });
+
   });
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -168,11 +194,39 @@ $(document).ready(function () {
       $("div.card_id").hide()
       $("div.regis_number").show()
       $("div.commercial_regis_number").hide()
-    }
-
-
-    
+    }    
   });
+
+  ////// 1.6 จำนวนการจ้างงาน และรายได้ของกิจการต่อปี 
+  $("#id_f_employment").change(function () {  
+    var employmentcode = $("#id_f_employment option:selected").data("code"); // get the selected  data-code from the HTML input
+
+    if (employmentcode == '301') {
+      $("div.employment_etc").show()
+      $('#id_f_employment_etc').inputmask('999', { 'placeholder': ' ' });
+      return true;    
+    } else {
+      $('#id_f_employment_etc').val('');
+      $("div.employment_etc").hide()
+      return true;
+    }   
+  });
+
+  $("#id_f_revenue").change(function () {  
+    var revenuecode = $("#id_f_revenue option:selected").data("code"); // get the selected  data-code from the HTML input
+
+    if (revenuecode == '301') {
+      $("div.revenue_etc").show()
+      $("#id_f_revenue_etc").maskMoney({precision:0});     
+      return true;    
+    } else {
+      $('#id_f_revenue_etc').val('');
+      $("div.revenue_etc").hide()
+      return true;
+    }   
+  });
+
+
 
 
 });

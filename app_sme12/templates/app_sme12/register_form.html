@@ -49,7 +49,7 @@
 {% endif %}
 <section class="content">
     <div class="container-fluid">  
-        <form action="" method="POST" id="registerSme" data-amphur-url="{% url 'ajax_load_amphur' %}" data-tumbol-url="{% url 'ajax_load_tumbol' %}" data-busgroup-url="{% url 'ajax_load_busgroup' %}">
+        <form action="" method="POST" id="registerSme" data-amphur-url="{% url 'ajax_load_amphur' %}" data-tumbol-url="{% url 'ajax_load_tumbol' %}" data-busgroup-url="{% url 'ajax_load_busgroup' %}" data-employment-url="{% url 'ajax_load_employment' %}" data-revenue-url="{% url 'ajax_load_revenue' %}">
         {% csrf_token %}
             <div id="smartwizard">
                 <ul>
@@ -198,7 +198,7 @@
                                         <div class="form-group row">
                                             <label for="{{ form.ent_postcode.id_for_label }}" class="col-sm-4 col-form-label">{{ form.ent_postcode.label }}</label>
                                             <div class="col-sm-8">
-                                                {% render_field form.ent_postcode class="form-control" placeholder="โปรดระบุ" readonly=true%}                            
+                                                {% render_field form.ent_postcode class="form-control" placeholder="โปรดระบุ"%}                            
                                             </div>
                                         </div>
                                     </div>
@@ -326,7 +326,7 @@
                                         <div class="form-group row">
                                             <label for="{{ form.owner_postcode.id_for_label }}" class="col-sm-4 col-form-label">{{ form.owner_postcode.label }}</label>
                                             <div class="col-sm-8">
-                                                {% render_field form.owner_postcode class="form-control" placeholder="โปรดระบุ" readonly=true%}
+                                                {% render_field form.owner_postcode class="form-control" placeholder="โปรดระบุ"%}
                                             </div>
                                         </div>
                                     </div>
@@ -481,7 +481,7 @@
                                         <div class="form-group row">
                                             <label for="{{ form.business_type.id_for_label }}" class="col-sm-4 col-form-label">{{ form.business_type.label }}</label>
                                             <div class="col-sm-8">
-                                                {% render_field form.business_type class="form-control select2bs4"%}
+                                                {% render_field form.business_type class="form-control"%}
                                             </div>
                                         </div>
                                     </div>
@@ -489,7 +489,7 @@
                                         <div class="form-group row">
                                             <label for="{{ form.business_group.id_for_label }}" class="col-sm-4 col-form-label">{{ form.business_group.label }}</label>
                                             <div class="col-sm-8">
-                                                {% render_field form.business_group class="form-control select2bs4"%}
+                                                {% render_field form.business_group class="form-control"%}
                                             </div>
                                         </div>
                                     </div>
@@ -512,7 +512,112 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>                              
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
+                                            <label for="{{ form.otop.id_for_label }}" class="col-sm-4 col-form-label">{{ form.otop.label }}</label>
+                                            <div class="col-sm-8">
+                                                <!-- {% render_field form.otop class="form-control" type="select"%} -->
+                                                <select name="otop" class="form-control" id="id_otop">
+                                                    <option value="" selected="">-- โปรดเลือก --</option>
+                                                    <option value=True>มี</option>
+                                                    <option value=False>ไม่มี</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h3 class="card-title">1.6 จำนวนการจ้างงาน และรายได้ของกิจการต่อปี</h3>   
+                                    <hr class="solid">                                 
+                                </div> 
+                                <div class="row">
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
+                                            <label for="{{ form.f_employment.id_for_label }}" class="col-sm-4 col-form-label">{{ form.f_employment.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.f_employment class="form-control"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row employment_etc">
+                                            <label for="{{ form.f_employment_etc.id_for_label }}" class="col-sm-4 col-form-label">{{ form.f_employment_etc.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.f_employment_etc class="form-control"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
+                                            <label for="{{ form.f_revenue.id_for_label }}" class="col-sm-4 col-form-label">{{ form.f_revenue.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.f_revenue class="form-control"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row revenue_etc">
+                                            <label for="{{ form.f_revenue_etc.id_for_label }}" class="col-sm-4 col-form-label">{{ form.f_revenue_etc.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.f_revenue_etc class="form-control"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h3 class="card-title">2. ข้อมูลเกี่ยวกับการดำเนินกิจการ</h3>   
+                                    <hr class="solid">                                 
+                                </div> 
+                                <div class="row">
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
+                                            <label for="{{ form.f_cap.id_for_label }}" class="col-sm-4 col-form-label">{{ form.f_cap.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.f_cap class="form-control"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
+                                            <label for="{{ form.f_profit.id_for_label }}" class="col-sm-4 col-form-label">{{ form.f_profit.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.f_profit class="form-control"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <h3 class="card-title">3. ท่านรับรู้ข้อมูลข่าวสารการประกวดจากช่องทาง (เลือกได้หลายข้อ)</h3>   
+                                    <hr class="solid">                                 
+                                </div> 
+                                <div class="row">
+                                    <div class="col-md-6">                        
+                                        <div class="form-group row">
+                                            <label for="{{ form.f_promote.id_for_label }}" class="col-sm-4 col-form-label">{{ form.f_promote.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.f_promote class="form-control"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">          
+                                        <div class="form-group row">
+                                            <label for="{{ form.f_promote_etc.id_for_label }}" class="col-sm-4 col-form-label">{{ form.f_promote_etc.label }}</label>
+                                            <div class="col-sm-8">
+                                                {% render_field form.f_promote_etc class="form-control"%}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer" style="display: block;">              
@@ -540,6 +645,9 @@
 <!-- InputMask -->
 <!-- <script src="{% static 'adminlte/plugins/moment/moment.min.js' %}"></script> -->
 <script src="{% static 'adminlte/plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
+<!-- Jquery-maskMoney -->
+<script src="{% static 'jquerymaskmoney/jquery.maskMoney.js' %}"></script>
+
 <!-- page script -->
 <script src="{% static 'app_sme12/js/register_form.js'%}"></script>
 <script src="{% static 'app_sme12/js/register_form_validate.js'%}"></script>

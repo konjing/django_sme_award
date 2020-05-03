@@ -12,5 +12,8 @@ urlpatterns = [
 
     path('ajax/load-amphur/', views.load_amphur, name='ajax_load_amphur'),
     path('ajax/load-tumbol/', views.load_tumbol, name='ajax_load_tumbol'),
-    path('ajax/load-busgroup/', views.load_businessgroup, name='ajax_load_busgroup'),
+    path('ajax/load-busgroup/', views.load_businessgroup, name='ajax_load_busgroup'), 
+    path('ajax/load-employment/', views.load_employment, name='ajax_load_employment'), 
+    path('ajax/load-revenue/', views.load_revenue, name='ajax_load_revenue'), 
+
 ]

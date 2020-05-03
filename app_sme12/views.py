@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
 
 from app_sme12.models import SmeCompetition, FormRegister
 from app_backend.models import Owner, Enterpise, Competition, BusinessGroup, BusinessModel, BusinessType, Province, Amphur, Tumbol
 
-from app_sme12.forms import RegistrationForm
+from app_sme12.forms import RegistrationForm, Employment, Revenue, AuthorizeCapital, ProfitPrevious, Promote
 
 def dashboardView(request):
 
@@ -20,17 +20,19 @@ def registerFormView(request):
     init_amphur = Amphur.objects.all()
 
     if request.method == 'POST':
-        form = RegistrationForm(request.POST)
-        ent_province_id = int(request.POST.get('ent_province'))
-        ent_amphur_id = int(request.POST.get('ent_amphur'))
-        owner_province_id = int(request.POST.get('owner_province'))
-        owner_amphur_id = int(request.POST.get('owner_amphur'))
-        business_model_id = int(request.POST.get('business_model'))
-        business_type_id = int(request.POST.get('business_type'))
-        business_group_id = int(request.POST.get('business_group'))
-        
+        form = RegistrationForm(request.POST)       
+        if request.POST.get('f_employment_etc'):
+            new_emp_etc = int(request.POST.get('f_employment_etc'))
+        else:
+            new_emp_etc = 0
+
+        if request.POST.get('f_revenue_etc'):
+            new_rev_etc = int(request.POST.get('f_revenue_etc').replace(',', ''))
+        else:
+            new_rev_etc = 0
 
         if form.is_valid():
+            """ บันทึกข้อมูลลงตาราง  Owner """
             owner = Owner.objects.create(
                 name = request.POST.get('owner_name'),
                 card_id = request.POST.get('owner_card_id'),
@@ -38,8 +40,8 @@ def registerFormView(request):
                 mu = request.POST.get('owner_mu'), 
                 soi = request.POST.get('owner_soi'),
                 street = request.POST.get('owner_street'),
-                province = Province.objects.get(pk=owner_province_id),
-                amphur = Amphur.objects.get(pk=owner_amphur_id),
+                province = Province.objects.get(pk=int(request.POST.get('owner_province'))),
+                amphur = Amphur.objects.get(pk=int(request.POST.get('owner_amphur'))),
                 postcode = request.POST.get('owner_postcode'),
                 tel = request.POST.get('owner_tel'),
                 fax = request.POST.get('owner_fax'),
@@ -47,6 +49,7 @@ def registerFormView(request):
                 email = request.POST.get('owner_email'),
             )
 
+            """ บันทึกข้อมูลลงตาราง  Enterpise """
             enterpise = Enterpise.objects.create(
                 name = request.POST.get('ent_name'),
                 establish_date = request.POST.get('ent_establish_date'),
@@ -56,8 +59,8 @@ def registerFormView(request):
                 mu = request.POST.get('ent_mu'),
                 soi = request.POST.get('ent_soi'),
                 street = request.POST.get('ent_street'),
-                province = Province.objects.get(pk=ent_province_id),
-                amphur = Amphur.objects.get(pk=ent_amphur_id),
+                province = Province.objects.get(pk= int(request.POST.get('ent_province'))),
+                amphur = Amphur.objects.get(pk=int(request.POST.get('ent_amphur'))),
                 postcode = request.POST.get('ent_postcode'),
                 tel = request.POST.get('ent_tel'),
                 fax = request.POST.get('ent_fax'),
@@ -66,7 +69,7 @@ def registerFormView(request):
 
                 owner = owner,  
 
-                business_model = BusinessModel.objects.get(pk=business_model_id),
+                business_model = BusinessModel.objects.get(pk=int(request.POST.get('business_model'))),
                 bus_model_etc1 = request.POST.get('bus_model_etc1'),
                 bus_model_etc2 = request.POST.get('bus_model_etc2'),
                 juristic_id = request.POST.get('juristic_id'),
@@ -79,26 +82,27 @@ def registerFormView(request):
                 contact_tel = request.POST.get('contact_tel'),
                 contact_email = request.POST.get('contact_email'),
 
-                business_type = BusinessType.objects.get(pk=business_type_id),
-                business_group = BusinessGroup.objects.get(pk=business_group_id),
+                business_type = BusinessType.objects.get(pk=int(request.POST.get('business_type'))),
+                business_group = BusinessGroup.objects.get(pk=int(request.POST.get('business_group'))),
                 # business_group_etc = request.POST.get('business_group_etc'),
                 product_info = request.POST.get('product_info'),
                 material = request.POST.get('material'),
-                # otop = request.POST.get('otop'),                
-
-                # regis_cap = request.POST.get('regis_cap'),
-
+                otop = request.POST.get('otop'),
             )    
-
+                       
+            """ บันทึกข้อมูลลงตาราง  FormRegister """
             form_register = FormRegister.objects.create(
                 regis_code = request.POST.get('regis_code'),  
-                # employ = request.POST.get('f_employ'),
-                # revenue = request.POST.get('f_revenue'),  
+                employment = Employment.objects.get(id=int(request.POST.get('f_employment'))), 
+                employment_etc = new_emp_etc, 
+                revenue = Revenue.objects.get(id=int(request.POST.get('f_revenue'))), 
+                revenue_etc = new_rev_etc, 
+               
+                authorize_capital = AuthorizeCapital.objects.get(id= int(request.POST.get('f_cap'))),
+                profit_previous = ProfitPrevious.objects.get(id= int(request.POST.get('f_profit'))),
 
-                # profit = request.POST.get('f_profit'), 
-                # news_from = request.POST.get('f_news_from'),
-                # news_from_etc = request.POST.get('f_news_from_etc'),
-
+                promote_etc = request.POST.get('f_promote_etc'),
+                
                 # join_choice = request.POST.get('f_join_choice'),
                 # training_course = request.POST.get('f_training_course'),
                 # trainee1_name = request.POST.get('f_trainee1_name'),
@@ -111,6 +115,7 @@ def registerFormView(request):
                 # trainee2_email = request.POST.get('f_trainee2_email'),
             )
 
+            """ บันทึกข้อมูลลงตาราง  SmeCompetition """
             sme_comp = SmeCompetition.objects.create(
                 enterpise = enterpise,
                 competition = Competition.objects.get(id=1),
@@ -119,15 +124,22 @@ def registerFormView(request):
             )
 
             if request.POST.get('ent_tumbol'):
+                """ บันทึกตำบลลงตาราง กรณีที่กรอกตำบล(สถานประกอบการ)"""
                 ent_tumbol_id = int(request.POST.get('ent_tumbol'))
                 enterpise.tumbol = Tumbol.objects.get(pk=ent_tumbol_id)
                 enterpise.save()
 
             if request.POST.get('owner_tumbol'):
+                """ บันทึกตำบลลงตาราง กรณีที่กรอกตำบล(เจ้าของ) """
                 owner_tumbol_id = int(request.POST.get('owner_tumbol'))
                 owner.tumbol = Tumbol.objects.get(pk=owner_tumbol_id)
                 owner.save()
-                
+
+            for f_pro in request.POST.get('f_promote'):
+                """ บันทึก รับข่าวสารจากช่องทางลงตาราง  M2M"""
+                promote_obj =Promote.objects.get(id=int(f_pro))
+                form_register.promote.add(promote_obj) 
+            
 
             messages.success(request, 'ลงทะเบียนผู้สมัครสำเร็จ')        
             return redirect('register-list')
@@ -228,13 +240,13 @@ def load_amphur(request):
     """ Amphur Dependent/Chained Dropdown List """
     province_id = request.GET.get('province')
     amphur_list = Amphur.objects.filter(province_id=province_id).order_by('name')
-    return render(request, 'app_sme12/amphur_dropdown_list_options.html', {'amphur_list': amphur_list})
+    return render(request, 'app_sme12/form_partial/amphur_dropdown_list_options.html', {'amphur_list': amphur_list})
 
 def load_tumbol(request):
     """ Tumbol Dependent/Chained Dropdown List """
     amphur_id = request.GET.get('amphur')
     tumbol_list = Tumbol.objects.filter(amphur_id=amphur_id).order_by('name')
-    return render(request, 'app_sme12/tumbol_dropdown_list_options.html', {'tumbol_list': tumbol_list})
+    return render(request, 'app_sme12/form_partial/tumbol_dropdown_list_options.html', {'tumbol_list': tumbol_list})
 
 def load_businessgroup(request):
     """ Business Group Dependent/Chained Dropdown List """
@@ -242,4 +254,20 @@ def load_businessgroup(request):
     business_group_list = BusinessGroup.objects.filter(business_type_id=business_type_id).order_by('name')
 
     context = {'business_group_list':business_group_list}
-    return render(request, 'app_sme12/bus_group_dropdown_list_options.html', context)
+    return render(request, 'app_sme12/form_partial/bus_group_dropdown_list_options.html', context)
+
+def load_employment(request):
+    """ Employment Dependent/Chained Dropdown List """
+    business_type_id = request.GET.get('business_type')
+    employment_list = Employment.objects.filter(business_type_id=business_type_id).order_by('code')
+
+    context = {'employment_list':employment_list}
+    return render(request, 'app_sme12/form_partial/employment_dropdown_list_options.html', context)
+
+def load_revenue(request):
+    """ Revenue Dependent/Chained Dropdown List """
+    business_type_id = request.GET.get('business_type')
+    revenue_list = Revenue.objects.filter(business_type_id=business_type_id).order_by('code')
+
+    context = {'revenue_list':revenue_list}
+    return render(request, 'app_sme12/form_partial/revenue_dropdown_list_options.html', context)
