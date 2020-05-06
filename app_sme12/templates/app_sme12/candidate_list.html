@@ -37,7 +37,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150 ราย</h3>
+                <h3>{{ bus_type_production|default_if_none:"--" }} ราย</h3>
                 <p>ภาคการผลิต</p>
               </div>
               <div class="icon">
@@ -51,7 +51,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53 ราย</h3>
+                <h3>{{ bus_type_service|default_if_none:"--" }} ราย</h3>
                 <p>ภาคบริการ ค้าส่ง หรือค้าปลีก</p>
               </div>
               <div class="icon">
@@ -65,7 +65,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>44 ราย</h3>
+                <h3>{{ bus_type_farm|default_if_none:"--" }} ราย</h3>
                 <p>ธุรกิจเกษตร</p>
               </div>
               <div class="icon">
@@ -79,7 +79,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>247 ราย</h3>
+                <h3>{{ total_bus }} ราย</h3>
                 <p>รวมทุกกลุ่ม</p>
               </div>
               <div class="icon">

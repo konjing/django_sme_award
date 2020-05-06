@@ -157,8 +157,8 @@ class SmeCompetition(models.Model):
     form_site_visit = models.OneToOneField(FormSiteVisit, blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
-        if self.enterpise.name==None:
-            return "ERROR-CUSTOMER NAME IS NULL"
-        return '{} - {}'.format(self.enterpise.name, self.competition.name)      
-        
+        # if self.enterpise.name==None:
+        #     return "ERROR-CUSTOMER NAME IS NULL"
+        # return '{} - {}'.format(self.enterpise.name, self.competition.name)      
+        return '{} - {}'.format(self.id, self.enterpise)
 
