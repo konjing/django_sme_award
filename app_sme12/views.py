@@ -1,18 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 from app_sme12.models import SmeCompetition, FormRegister
 from app_backend.models import Owner, Enterpise, Competition, BusinessGroup, BusinessModel, BusinessType, Province, Amphur, Tumbol
 
 from app_sme12.forms import RegistrationForm, Employment, Revenue, AuthorizeCapital, ProfitPrevious, Promote
 
+@login_required(login_url='login')
 def dashboardView(request):
 
     context = {}
     return render(request, 'app_sme12/dashboard.html', context)
 
-
+@login_required(login_url='login')
 def registerFormView(request):
     """ แบบฟอร์มลงทะเบียน """
     form = RegistrationForm()
@@ -149,111 +151,168 @@ def registerFormView(request):
     context = {'form':form, 'business_model':business_model, 'init_amphur':init_amphur}
     return render(request, 'app_sme12/register_form.html', context)
 
-
+#### List View ---------------------------------------------------------------
+@login_required(login_url='login')
 def registerListView(request):    
     """ จัดการข้อมูลและพิจารณา ผู้สมัครที่ส่งข้อมูลเข้ามา """
-    queryset = SmeCompetition.objects.filter(state=1, competition=1)
+    queryset = SmeCompetition.objects.filter(state=1, competition=1, active=True)
     total_bus = queryset.count()
     bus_type_production = queryset.filter(enterpise__business_type=1).count()
     bus_type_service = queryset.filter(enterpise__business_type=2).count()
     bus_type_farm = queryset.filter(enterpise__business_type=3).count()
 
     if request.method == 'POST': 
-        """ อัพเดตสถานะผ่านการตรวจสอบตาม check list  """
-        id_list = request.POST.getlist('regis_id')
-        total_select = len(id_list)
-        for regis_id in id_list:
-            SmeCompetition.objects.filter(id=regis_id).update(state=2)
+        """ อัพเดตสถานะการตรวจสอบตาม check list  """
+        if request.POST.get('approval') == 'pass':
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=2)
 
-        messages.success(request, 'ผู้สมัคร {} ราย ผ่านการตรวจสอบคุุณสมบัติ'.format(total_select))        
+            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+        else:
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=3)
+
+            messages.warning(request, 'ผู้สมัครไม่ผ่าน {} ราย '.format(total_select))
         return redirect('register-list')
 
     context = {'queryset':queryset, 'total_bus':total_bus, 'bus_type_production':bus_type_production, 'bus_type_service':bus_type_service, 'bus_type_farm':bus_type_farm}
     return render(request, 'app_sme12/register_list.html', context) 
 
-
+@login_required(login_url='login')
 def screenListView(request):    
     """ จัดการข้อมูลและพิจารณา ผู้สมัครที่ผ่านการตรวจสอบคุณสมบัติ """
-    queryset = SmeCompetition.objects.filter(state=2, competition=1)
+    queryset = SmeCompetition.objects.filter(state=2, competition=1, active=True)
     total_bus = queryset.count()
     bus_type_production = queryset.filter(enterpise__business_type=1).count()
     bus_type_service = queryset.filter(enterpise__business_type=2).count()
     bus_type_farm = queryset.filter(enterpise__business_type=3).count()
 
-    if request.method == 'POST': #<- Checking for method type
-        id_list = request.POST.getlist('regis_id')
-        total_select = len(id_list)
-        for regis_id in id_list:
-            SmeCompetition.objects.filter(id=regis_id).update(state=4)
-
-        messages.success(request, 'ผู้สมัคร {} ราย ผ่านการตรวจประเมินเบื้องต้น'.format(total_select))        
-        return redirect('screen-list')
+    if request.method == 'POST': 
+        """ อัพเดตสถานะการตรวจสอบตาม check list  """
+        if request.POST.get('approval') == 'pass':
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=4)
+            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+        else:
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=5)
+            messages.warning(request, 'ผู้สมัครไม่ผ่าน {} ราย '.format(total_select))
+        return redirect('register-list')
 
     context = {'queryset':queryset, 'total_bus':total_bus, 'bus_type_production':bus_type_production, 'bus_type_service':bus_type_service, 'bus_type_farm':bus_type_farm}
     return render(request, 'app_sme12/screen_list.html', context) 
 
-
+@login_required(login_url='login')
 def interviewListView(request):    
     """ จัดการข้อมูลและพิจารณา ผู้สมัครที่ผ่านการตรวจประเมินเบื้องต้น """
-    queryset = SmeCompetition.objects.filter(state=4, competition=1)
+    queryset = SmeCompetition.objects.filter(state=4, competition=1, active=True)
     total_bus = queryset.count()
     bus_type_production = queryset.filter(enterpise__business_type=1).count()
     bus_type_service = queryset.filter(enterpise__business_type=2).count()
     bus_type_farm = queryset.filter(enterpise__business_type=3).count()
 
     if request.method == 'POST': #<- Checking for method type
-        id_list = request.POST.getlist('regis_id')
-        total_select = len(id_list)
-        for regis_id in id_list:
-            SmeCompetition.objects.filter(id=regis_id).update(state=6)
-
-        messages.success(request, 'ผู้สมัคร {} ราย ผ่านการสัมภาษณ์เพื่อเลือกไป Site visit'.format(total_select))        
-        return redirect('interview-list')
+        """ อัพเดตสถานะการตรวจสอบตาม check list  """
+        if request.POST.get('approval') == 'pass':
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=6)
+            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+        else:
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=7)
+            messages.warning(request, 'ผู้สมัครไม่ผ่าน {} ราย '.format(total_select))
+        return redirect('register-list')
 
     context = {'queryset':queryset, 'total_bus':total_bus, 'bus_type_production':bus_type_production, 'bus_type_service':bus_type_service, 'bus_type_farm':bus_type_farm}
     return render(request, 'app_sme12/interview_list.html', context)
 
-
+@login_required(login_url='login')
 def evaluateListView(request):    
     """ จัดการข้อมูลและพิจารณา ผู้สมัครที่ผ่านการสัมภาษณ์เพื่อเลือกไป Site visit """
-    queryset = SmeCompetition.objects.filter(state=6, competition=1)
+    queryset = SmeCompetition.objects.filter(state=6, competition=1, active=True)
     total_bus = queryset.count()
     bus_type_production = queryset.filter(enterpise__business_type=1).count()
     bus_type_service = queryset.filter(enterpise__business_type=2).count()
     bus_type_farm = queryset.filter(enterpise__business_type=3).count()
 
     if request.method == 'POST': #<- Checking for method type
-        id_list = request.POST.getlist('regis_id')
-        total_select = len(id_list)
-        for regis_id in id_list:
-            SmeCompetition.objects.filter(id=regis_id).update(state=8)
-
-        messages.success(request, 'ผู้สมัคร {} ราย ผ่านเกณฑ์พิจารณาในแต่ละกลุ่ม'.format(total_select))        
-        return redirect('evaluate-list')
+        """ อัพเดตสถานะการตรวจสอบตาม check list  """
+        if request.POST.get('approval') == 'pass':
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=8)
+            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+        else:
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=9)
+            messages.warning(request, 'ผู้สมัครไม่ผ่าน {} ราย '.format(total_select))
+        return redirect('register-list')
 
     context = {'queryset':queryset, 'total_bus':total_bus, 'bus_type_production':bus_type_production, 'bus_type_service':bus_type_service, 'bus_type_farm':bus_type_farm}
     return render(request, 'app_sme12/evaluate_list.html', context)
 
-
+@login_required(login_url='login')
 def candidateListView(request):    
     """ จัดการข้อมูลและพิจารณา ผู้สมัครที่ผ่านเข้าชิงรางวัลในแต่ละกลุ่ม """
-    queryset = SmeCompetition.objects.filter(state=8, competition=1)
+    queryset = SmeCompetition.objects.filter(state=8, competition=1, active=True)
     total_bus = queryset.count()
     bus_type_production = queryset.filter(enterpise__business_type=1).count()
     bus_type_service = queryset.filter(enterpise__business_type=2).count()
     bus_type_farm = queryset.filter(enterpise__business_type=3).count()
 
     if request.method == 'POST': #<- Checking for method type
-        id_list = request.POST.getlist('regis_id')
-        total_select = len(id_list)
-        for regis_id in id_list:
-            SmeCompetition.objects.filter(id=regis_id).update(state=10)
-
-        messages.success(request, 'ผู้สมัคร {} ราย ได้รับรา่งวัล'.format(total_select))        
-        return redirect('candidate-list')
+        """ อัพเดตสถานะการตรวจสอบตาม check list  """
+        if request.POST.get('approval') == 'pass':
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=10)
+            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+        else:
+            id_list = request.POST.getlist('regis_id')
+            total_select = len(id_list)
+            for regis_id in id_list:
+                SmeCompetition.objects.filter(id=regis_id).update(state=11)
+            messages.warning(request, 'ผู้สมัครไม่ผ่าน {} ราย '.format(total_select))
+        return redirect('register-list')
 
     context = {'queryset':queryset, 'total_bus':total_bus, 'bus_type_production':bus_type_production, 'bus_type_service':bus_type_service, 'bus_type_farm':bus_type_farm}
     return render(request, 'app_sme12/candidate_list.html', context)
+
+#### Cancle View ---------------------------------------------------------------
+@login_required(login_url='login')
+def cancleRegister(request, compet_id):
+    query_obj = get_object_or_404(SmeCompetition, pk=compet_id)
+    query_obj.active = False
+    query_obj.save()
+
+    messages.warning(request, 'ยกเลิกผู้สมัคร {} '.format(query_obj.enterpise))
+    context = {}
+    return redirect('register-list')
+
+#### SME info ----------------------------------------------------------------\
+def smeInfo(request, compet_id):
+    query_obj = get_object_or_404(SmeCompetition, pk=compet_id)
+    str_bus_type = str(query_obj.enterpise.business_type)
+    str_website = str(query_obj.enterpise.website)
+
+    context = {'query_obj':query_obj, 'str_bus_type':str_bus_type, 'str_website':str_website}
+    return render(request, 'app_sme12/sme_info.html', context)
 
 
 # ----------------- Helper ---------------------------------------------------

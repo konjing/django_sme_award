@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def loginView(request):
@@ -24,11 +25,13 @@ def logoutView(request):
     logout(request)
     return redirect('login')
 
+@login_required(login_url='login')
 def homeView(request):
 
     context = {}
     return render(request, 'app_backend/home.html', context) 
 
+@login_required(login_url='login')
 def profileView(request):
 
     context = {}

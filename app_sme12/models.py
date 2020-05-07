@@ -11,7 +11,8 @@ class Employment(models.Model):
     active = models.BooleanField(verbose_name='สถานะการใช้งาน', default=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.business_type.name, self.name)
+        # return '{} - {}'.format(self.business_type.name, self.name)
+        return '{}'.format(self.name)
 
 
 class Revenue(models.Model):
@@ -22,7 +23,8 @@ class Revenue(models.Model):
     active = models.BooleanField(verbose_name='สถานะการใช้งาน', default=True)
 
     def __str__(self):
-        return '{} - {}'.format(self.code, self.name)
+        # return '{} - {}'.format(self.code, self.name)
+        return '{}'.format(self.name)
 
 
 class AuthorizeCapital(models.Model):
@@ -146,6 +148,7 @@ class SmeCompetition(models.Model):
         (8, 'ผ่านการพิจารณา'),
         (9, 'ไม่ผ่านการพิจารณา'),
         (10, 'เข้าชิงรางวัล'),
+        (11, 'ไม่เข้าชิงรางวัล'),
     ]
     
     enterpise = models.ForeignKey(Enterpise, blank=True, null=True, on_delete=models.SET_NULL) 

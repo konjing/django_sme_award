@@ -1,0 +1,621 @@
+{% extends "app_backend/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block styles %}
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  
+{% endblock %}
+
+
+{% block headcontent %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">ข้อมูลการเข้าประกวด</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock%}
+
+
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Profile Image -->
+                <div class="card card-primary card-outline">
+                  <div class="card-body box-profile">
+                    <div class="text-center">
+                      <img class="profile-user-img img-fluid img-circle" src="{% static 'adminlte/dist/img/busines-logo.jpg' %}" alt="User profile picture">
+                    </div>    
+                    <h3 class="profile-username text-center">บริษัท {{ query_obj.enterpise }}</h3>
+                    <p class="text-muted text-center">กลุ่ม{{ query_obj.enterpise.business_type }}</p>
+                    <ul class="list-group list-group-unbordered mb-3">
+                    {% if str_bus_type != "ธุรกิจเกษตร" %}
+                        <li class="list-group-item">
+                            <b>จำนวนพนักงาน</b> <a class="float-right">{{ query_obj.form_register.employment }}</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>รายได้</b> <a class="float-right">{{ query_obj.form_register.revenue }}</a>
+                        </li>
+                    {% else %}
+                        <li class="list-group-item">
+                            <b>จำนวนพนักงาน</b> <a class="float-right">{{ query_obj.form_register.employment_etc|intcomma }} คน</a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>รายได้</b> <a class="float-right">{{ query_obj.form_register.revenue_etc|intcomma }} บาท</a>
+                        </li>
+                    {% endif %}
+                      <li class="list-group-item">
+                        <b>รหัสสมาชิก สสว.</b> <a class="float-right">{{ query_obj.enterpise.sme_code }}</a>
+                      </li>
+                    </ul>    
+                    {% if query_obj.enterpise.website is None %}
+                      <a href="#" class="btn btn-secondary btn-block"><b>Link Website(ไม่มี)</b></a>
+                    {% else %}
+                      <a href="http://{{ str_website }}" class="btn btn-primary btn-block" target="_blank"><b>Link Website</b></a>
+                    {% endif %}
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+    
+                <!-- About Me Box -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">ข้อมูลสถานประกอบการ</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">                        
+                    <strong><i class="fas fa-map-marker-alt mr-1"></i> ที่ตั้ง</strong>    
+                    <p class="text-muted">{{ query_obj.enterpise.province }}, {{ query_obj.enterpise.amphur }} {{ query_obj.enterpise.postcode }}</p>    
+                    <hr>    
+                    <strong><i class="fas fa-pencil-alt mr-1"></i> สินค้าหรือบริการ</strong>    
+                    <p class="text-muted">                      
+                      <span class="tag tag-info">{{ query_obj.enterpise.product_info }}</span>                     
+                    </p>    
+                    <hr>    
+                    <strong><i class="far fa-file-alt mr-1"></i> วัตถุดิบในการผลิต</strong>    
+                    <p class="text-muted">{{ query_obj.enterpise.material }}</p>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">              
+              <div class="card">
+                <div class="card-header p-2">
+                  <ul class="nav nav-pills">
+                    <li class="nav-item"><a class="nav-link active" href="#form-register" data-toggle="tab">ข้อมูลลงทะเบียน</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#form-interview" data-toggle="tab">ข้อมูลสัมภาษณ์</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#form-site-visit" data-toggle="tab">ข้อมูล Site visit</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#note" data-toggle="tab">ประวัติ/บันทึก</a></li>
+                    </ul>
+                </div><!-- /.card-header -->
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="active tab-pane" id="form-register">                                              
+                      <div class="row">
+                        <div class="col-12 col-md-12 col-lg-12">
+                          <div class="row">
+                            <div class="col-12 col-sm-3">
+                              <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                  <span class="info-box-text text-center text-muted">รูปแบบการจัดตั้งกิจการ</span>
+                                  <span class="info-box-number text-center text-muted mb-0">{{ query_obj.enterpise.business_model }}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                              <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                  <span class="info-box-text text-center text-muted">ประเภทกลุ่มธุรกิจ</span>
+                                  <span class="info-box-number text-center text-muted mb-0">{{ query_obj.enterpise.business_group }}</span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                              <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                  <span class="info-box-text text-center text-muted">ทุนจดทะเบียน</span>
+                                  <span class="info-box-number text-center text-muted mb-0">{{ query_obj.form_register.authorize_capital }}<span>
+                                </span></span></div>
+                              </div>
+                            </div>
+                            <div class="col-12 col-sm-3">
+                              <div class="info-box bg-light">
+                                <div class="info-box-content">
+                                  <span class="info-box-text text-center text-muted">กำไร(ณ สิ้นปีก่อนหน้า)</span>
+                                  <span class="info-box-number text-center text-muted mb-0">{{ query_obj.form_register.profit_previous }}<span>
+                                </span></span></div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-12">
+                              <form class="form-horizontal">
+                                <div class="form-group row">
+                                  <label for="inputName" class="col-sm-2 col-form-label">รหัสสมัคร</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName" value="{{ query_obj.form_register.regis_code }}" readonly>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputName2" class="col-sm-2 col-form-label">ผู้สมัคร</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName2" value="{{ query_obj.form_register.regis_name }}" readonly>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputName3" class="col-sm-2 col-form-label">วันที่สมัคร</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName3" value="{{ query_obj.form_register.regis_date }}" readonly>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputName4" class="col-sm-2 col-form-label">ชื่อผู้ติดต่อ</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName4" value="{{ query_obj.enterpise.contact_name }}" readonly>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputName4" class="col-sm-2 col-form-label">ตำแหน่งผู้ติดต่อ</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName4" value="{{ query_obj.enterpise.contact_position }}" readonly>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputName5" class="col-sm-2 col-form-label">เบอร์ผู้ติดต่อ</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName5" value="{{ query_obj.enterpise.contact_tel }}" readonly>
+                                  </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label for="inputName6" class="col-sm-2 col-form-label">อีเมลผู้ติดต่อ</label>
+                                  <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputName6" value="{{ query_obj.enterpise.contact_email }}" readonly>
+                                  </div>
+                                </div>                               
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="form-interview">
+                      
+                    </div>
+                    <!-- /.tab-pane -->    
+                    <div class="tab-pane" id="form-site-visit">
+                      
+                    </div>
+                    <!-- /.tab-pane -->
+                    <div class="tab-pane" id="note">
+                      <div class="card">
+                        <div class="card-header">
+                          <h3 class="card-title">บันทึก</h3>                  
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                              <i class="fas fa-minus"></i></button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                              <i class="fas fa-times"></i></button>
+                          </div>
+                        </div>
+                        <div class="card-body p-0">
+                          <table class="table table-striped projects">
+                              <thead>
+                                  <tr>
+                                      <th style="width: 1%">
+                                          #
+                                      </th>
+                                      <th style="width: 20%">
+                                          หัวข้อ
+                                      </th>
+                                      <th style="width: 30%">
+                                          ผู้เกี่ยวข้อง
+                                      </th>
+                                      <th>
+                                          ความคืบหน้า
+                                      </th>
+                                      <th style="width: 8%" class="text-center">
+                                          สถานะ
+                                      </th>
+                                      <th style="width: 20%">
+                                      </th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td>
+                                          #
+                                      </td>
+                                      <td>
+                                          <a>
+                                              โครงการ #1
+                                          </a>
+                                          <br>
+                                          <small>
+                                              สร้าง 01.01.2019
+                                          </small>
+                                      </td>
+                                      <td>
+                                          <ul class="list-inline">
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar2.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar3.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar04.png' %}">
+                                              </li>
+                                          </ul>
+                                      </td>
+                                      <td class="project_progress">
+                                          <div class="progress progress-sm">
+                                              <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
+                                              </div>
+                                          </div>
+                                          <small>
+                                              57% Complete
+                                          </small>
+                                      </td>
+                                      <td class="project-state">
+                                          <span class="badge badge-success">Success</span>
+                                      </td>
+                                      <td class="project-actions text-right">
+                                          <a class="btn btn-primary btn-sm" href="#">
+                                              <i class="fas fa-folder">
+                                              </i>
+                                              View
+                                          </a>
+                                          <a class="btn btn-info btn-sm" href="#">
+                                              <i class="fas fa-pencil-alt">
+                                              </i>
+                                              Edit
+                                          </a>
+                                          <a class="btn btn-danger btn-sm" href="#">
+                                              <i class="fas fa-trash">
+                                              </i>
+                                              Delete
+                                          </a>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td>
+                                          #
+                                      </td>
+                                      <td>
+                                          <a>
+                                            โครงการ #2
+                                          </a>
+                                          <br>
+                                          <small>
+                                              Created 01.01.2019
+                                          </small>
+                                      </td>
+                                      <td>
+                                          <ul class="list-inline">
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar2.png' %}">
+                                              </li>
+                                          </ul>
+                                      </td>
+                                      <td class="project_progress">
+                                          <div class="progress progress-sm">
+                                              <div class="progress-bar bg-green" role="progressbar" aria-volumenow="47" aria-volumemin="0" aria-volumemax="100" style="width: 47%">
+                                              </div>
+                                          </div>
+                                          <small>
+                                              47% Complete
+                                          </small>
+                                      </td>
+                                      <td class="project-state">
+                                          <span class="badge badge-success">Success</span>
+                                      </td>
+                                      <td class="project-actions text-right">
+                                          <a class="btn btn-primary btn-sm" href="#">
+                                              <i class="fas fa-folder">
+                                              </i>
+                                              View
+                                          </a>
+                                          <a class="btn btn-info btn-sm" href="#">
+                                              <i class="fas fa-pencil-alt">
+                                              </i>
+                                              Edit
+                                          </a>
+                                          <a class="btn btn-danger btn-sm" href="#">
+                                              <i class="fas fa-trash">
+                                              </i>
+                                              Delete
+                                          </a>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td>
+                                          #
+                                      </td>
+                                      <td>
+                                          <a>
+                                            โครงการ #3
+                                          </a>
+                                          <br>
+                                          <small>
+                                              Created 01.01.2019
+                                          </small>
+                                      </td>
+                                      <td>
+                                          <ul class="list-inline">
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar2.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar3.png' %}">
+                                              </li>
+                                          </ul>
+                                      </td>
+                                      <td class="project_progress">
+                                          <div class="progress progress-sm">
+                                              <div class="progress-bar bg-green" role="progressbar" aria-volumenow="77" aria-volumemin="0" aria-volumemax="100" style="width: 77%">
+                                              </div>
+                                          </div>
+                                          <small>
+                                              77% Complete
+                                          </small>
+                                      </td>
+                                      <td class="project-state">
+                                          <span class="badge badge-success">Success</span>
+                                      </td>
+                                      <td class="project-actions text-right">
+                                          <a class="btn btn-primary btn-sm" href="#">
+                                              <i class="fas fa-folder">
+                                              </i>
+                                              View
+                                          </a>
+                                          <a class="btn btn-info btn-sm" href="#">
+                                              <i class="fas fa-pencil-alt">
+                                              </i>
+                                              Edit
+                                          </a>
+                                          <a class="btn btn-danger btn-sm" href="#">
+                                              <i class="fas fa-trash">
+                                              </i>
+                                              Delete
+                                          </a>
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td>
+                                          #
+                                      </td>
+                                      <td>
+                                          <a>
+                                            โครงการ #4
+                                          </a>
+                                          <br>
+                                          <small>
+                                              Created 01.01.2019
+                                          </small>
+                                      </td>
+                                      <td>
+                                          <ul class="list-inline">
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar2.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar3.png' %}">
+                                              </li>
+                                              <li class="list-inline-item">
+                                                  <img alt="Avatar" class="table-avatar" src="{% static 'adminlte/dist/img/avatar04.png' %}">
+                                              </li>
+                                          </ul>
+                                      </td>
+                                      <td class="project_progress">
+                                          <div class="progress progress-sm">
+                                              <div class="progress-bar bg-green" role="progressbar" aria-volumenow="60" aria-volumemin="0" aria-volumemax="100" style="width: 60%">
+                                              </div>
+                                          </div>
+                                          <small>
+                                              60% Complete
+                                          </small>
+                                      </td>
+                                      <td class="project-state">
+                                          <span class="badge badge-success">Success</span>
+                                      </td>
+                                      <td class="project-actions text-right">
+                                          <a class="btn btn-primary btn-sm" href="#">
+                                              <i class="fas fa-folder">
+                                              </i>
+                                              View
+                                          </a>
+                                          <a class="btn btn-info btn-sm" href="#">
+                                              <i class="fas fa-pencil-alt">
+                                              </i>
+                                              Edit
+                                          </a>
+                                          <a class="btn btn-danger btn-sm" href="#">
+                                              <i class="fas fa-trash">
+                                              </i>
+                                              Delete
+                                          </a>
+                                      </td>
+                                  </tr>                                                                      
+                              </tbody>
+                          </table>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                    </div>
+                    <!-- /.tab-pane -->
+                  </div>
+                  <!-- /.tab-content -->
+                </div><!-- /.card-body -->
+              </div>
+              <!-- /.nav-tabs-custom -->
+            </div>
+            <div class="col-md-3">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card bg-light">
+                    <div class="card-header text-muted border-bottom-0">
+                      <!-- Digital Strategist -->
+                    </div>
+                    <div class="card-body pt-0">
+                      <div class="row">
+                        <div class="col-7">
+                          <h2 class="lead"><b>{{ query_obj.enterpise.owner }}</b></h2>
+                          <p class="text-muted text-sm"><b>เลขบัตรประชาชน: </b> {{ query_obj.enterpise.owner.card_id }}</p>
+                          <ul class="ml-4 mb-0 fa-ul text-muted">
+                            <li class="small">
+                              <span class="fa-li">
+                                <i class="fas fa-lg fa-building"></i>
+                              </span> ที่อยู่: {{ query_obj.enterpise.owner.address_no }} 
+                              {{ query_obj.enterpise.owner.mu|default_if_none:"" }} 
+                              {{ query_obj.enterpise.owner.soi|default_if_none:"" }}
+                              {{ query_obj.enterpise.owner.province }},
+                              {{ query_obj.enterpise.owner.amphur }},
+                              {{ query_obj.enterpise.owner.tumbol|default_if_none:"" }}, 
+                              {{ query_obj.enterpise.owner.postcode }}
+                            </li>
+                            <li class="small">
+                              <span class="fa-li">
+                                <i class="fas fa-lg fa-phone"></i>
+                              </span> หมายเลขร์ติดต่อ #: 
+                              {{ query_obj.enterpise.owner.tel|default_if_none:"" }}, 
+                              {{ query_obj.enterpise.owner.fax|default_if_none:"" }},
+                              {{ query_obj.enterpise.owner.mobile|default_if_none:"" }},
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="col-5 text-center">
+                          <img src="{% static 'adminlte/dist/img/user1-128x128.jpg' %}" alt="" class="img-circle img-fluid">
+                        </div>
+                      </div>
+                    </div>
+                    <!-- <div class="card-footer">
+                      <div class="text-right">
+                        <a href="#" class="btn btn-sm bg-teal">
+                          <i class="fas fa-comments"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-primary">
+                          <i class="fas fa-user"></i> View Profile
+                        </a>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <!-- small box -->
+                  <div class="small-box bg-info">
+                    <div class="inner">
+                      <h3>730/1,000</h3>      
+                      <p>คะแนนพิจารณา</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-pie-graph"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <!-- <p class="text-center">
+                    <strong>คะแนนพิจารณา</strong>
+                  </p> -->
+                  <div class="progress-group">
+                    หมวดที่ 1
+                    <span class="float-right"><b>40</b>/120</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-danger" style="width: 33%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    หมวดที่ 2
+                    <span class="float-right"><b>60</b>/120</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-warning" style="width: 50%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->                  
+                  <div class="progress-group">
+                    หมวดที่ 3
+                    <span class="float-right"><b>110</b>/120</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-success" style="width: 90%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    หมวดที่ 4
+                    <span class="float-right"><b>60</b>/100</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-warning" style="width: 60%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    หมวดที่ 5
+                    <span class="float-right"><b>120</b>/140</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-success" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    หมวดที่ 6
+                    <span class="float-right"><b>140</b>/160</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-success" style="width: 75%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                  <div class="progress-group">
+                    หมวดที่ 7
+                    <span class="float-right"><b>200</b>/240</span>
+                    <div class="progress progress-sm">
+                      <div class="progress-bar bg-success" style="width: 80%"></div>
+                    </div>
+                  </div>
+                  <!-- /.progress-group -->
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+<!-- AdminLTE for demo purposes -->
+<script src="{% static 'adminlte/dist/js/demo.js' %}"></script>
+
+{% endblock %}

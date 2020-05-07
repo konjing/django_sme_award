@@ -97,11 +97,11 @@
             {% csrf_token %}
               <div class="card-header">
                 <div class="btn-group">
-                  <button type="submit" class="btn btn-block btn-primary">ผ่านการประเมิน</button>
+                  <button type="submit" name="approval" value="pass" class="btn btn-block btn-primary">ผ่านประเมิน</button>
                 </div>
-                <!-- <div class="btn-group">
-                  <button type="submit" class="btn btn-block btn-warning">ไม่ผ่านการตรวจ</button>
-                </div>                             -->
+                <div class="btn-group">
+                  <button type="submit" name="approval" value="notpass" class="btn btn-block btn-warning">ไม่ผ่าน</button>
+                </div>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
