@@ -1,13 +1,13 @@
 {% extends 'app_backend/base.html' %}
 {% load static %}
 
-
 {% block styles %}
 <!-- Ionicons -->
 <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- DataTables -->
 <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
 <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+
 {% endblock %}
 
 {% block headcontent %}
@@ -99,7 +99,7 @@
                 <div class="btn-group">
                   <button type="submit" name="approval" value="pass" class="btn btn-block btn-primary">ผ่านการตรวจ</button>
                 </div>
-                <div class="btn-group">
+                <div class="btn-group">                  
                   <button type="submit" name="approval" value="notpass" class="btn btn-block btn-warning">ไม่ผ่านการตรวจ</button>
                 </div>                            
               </div>
@@ -135,7 +135,8 @@
                           <button type="button" class="btn btn-info">ข้อมูล</button>
                         </a>
                     </td>
-                    <td><a href="{% url 'register-cancle' register.id %}">
+                    <td>
+                        <a href="{% url 'register-cancle' register.id %}" class="confirm-delete" title="Delete" data-toggle="modal" data-target="#confirmDeleteModal" id="deleteButton{{register.id}}">
                           <button type="button" class="btn btn-danger">ยกเลิก</button>
                         </a>
                     </td>
@@ -168,6 +169,8 @@
         <!-- /.row -->
       </section>
 
+      {% include 'app_backend/messages/modal/cancle_confirm.html' %}
+      {% include 'app_backend/messages/modal/notapprove_confirm.html' %}
 {% endblock%}
 
 
@@ -177,6 +180,8 @@
 <script src="{% static 'adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 <script src="{% static 'adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
 <script src="{% static 'adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+
 <!-- page script -->
 <script src="{% static 'app_sme12/js/register_list.js' %}"></script>
+
 {% endblock %}

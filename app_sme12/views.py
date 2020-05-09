@@ -364,23 +364,27 @@ def smeInfo(request, compet_id):
     str_bus_type = str(query_obj.enterpise.business_type)
     str_website = str(query_obj.enterpise.website)
 
-    percent_score1 = format(query_obj.form_site_visit.site_score1/120, '.0%')
-    percent_score2 = format(query_obj.form_site_visit.site_score2/120, '.0%')
-    percent_score3 = format(query_obj.form_site_visit.site_score3/120, '.0%')
-    percent_score4 = format(query_obj.form_site_visit.site_score4/100, '.0%')
-    percent_score5 = format(query_obj.form_site_visit.site_score5/140, '.0%')
-    percent_score6 = format(query_obj.form_site_visit.site_score6/160, '.0%')
-    percent_score7 = format(query_obj.form_site_visit.site_score7/240, '.0%')
-    total_score = query_obj.form_site_visit.site_score1 + query_obj.form_site_visit.site_score2 \
-                + query_obj.form_site_visit.site_score3 + query_obj.form_site_visit.site_score4 \
-                + query_obj.form_site_visit.site_score5 + query_obj.form_site_visit.site_score6 \
-                + query_obj.form_site_visit.site_score7
-    context = {'query_obj':query_obj, 'str_bus_type':str_bus_type, 'str_website':str_website, 
-                'percent_score1':percent_score1, 'percent_score2':percent_score2,
-                'percent_score3':percent_score3, 'percent_score4':percent_score4,
-                'percent_score5':percent_score5, 'percent_score6':percent_score6,
-                'percent_score7':percent_score7, 'total_score':total_score
-            }
+    if query_obj.form_site_visit:
+        percent_score1 = format(query_obj.form_site_visit.site_score1/120, '.0%') if query_obj.form_site_visit.site_score1 is not None else 0
+        percent_score2 = format(query_obj.form_site_visit.site_score2/120, '.0%') if query_obj.form_site_visit.site_score2 is not None else 0
+        percent_score3 = format(query_obj.form_site_visit.site_score3/120, '.0%') if query_obj.form_site_visit.site_score3 is not None else 0
+        percent_score4 = format(query_obj.form_site_visit.site_score4/100, '.0%') if query_obj.form_site_visit.site_score4 is not None else 0
+        percent_score5 = format(query_obj.form_site_visit.site_score5/140, '.0%') if query_obj.form_site_visit.site_score5 is not None else 0
+        percent_score6 = format(query_obj.form_site_visit.site_score6/160, '.0%') if query_obj.form_site_visit.site_score6 is not None else 0
+        percent_score7 = format(query_obj.form_site_visit.site_score7/240, '.0%') if query_obj.form_site_visit.site_score7 is not None else 0
+        total_score = query_obj.form_site_visit.site_score1 + query_obj.form_site_visit.site_score2 \
+                    + query_obj.form_site_visit.site_score3 + query_obj.form_site_visit.site_score4 \
+                    + query_obj.form_site_visit.site_score5 + query_obj.form_site_visit.site_score6 \
+                    + query_obj.form_site_visit.site_score7
+        context = {'query_obj':query_obj, 'str_bus_type':str_bus_type, 'str_website':str_website, 
+                    'percent_score1':percent_score1, 'percent_score2':percent_score2,
+                    'percent_score3':percent_score3, 'percent_score4':percent_score4,
+                    'percent_score5':percent_score5, 'percent_score6':percent_score6,
+                    'percent_score7':percent_score7, 'total_score':total_score
+                }
+        return render(request, 'app_sme12/sme_info.html', context)
+    
+    context = {'query_obj':query_obj, 'str_bus_type':str_bus_type, 'str_website':str_website}
     return render(request, 'app_sme12/sme_info.html', context)
 
 

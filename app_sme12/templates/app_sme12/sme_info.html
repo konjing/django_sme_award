@@ -573,7 +573,7 @@
                   </p> -->
                   <div class="progress-group">
                     หมวดที่ 1
-                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score1 }}</b>/120</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score1|default_if_none:"0" }}</b>/120</span>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-info" style="width: {{ percent_score1 }}"></div>
                     </div>
@@ -581,7 +581,7 @@
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 2
-                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score2 }}</b>/120</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score2|default_if_none:"0" }}</b>/120</span>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-info" style="width: {{ percent_score2 }}"></div>
                     </div>
@@ -589,7 +589,7 @@
                   <!-- /.progress-group -->                  
                   <div class="progress-group">
                     หมวดที่ 3
-                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score3 }}</b>/120</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score3|default_if_none:"0" }}</b>/120</span>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-info" style="width: {{ percent_score3 }}"></div>
                     </div>
@@ -597,7 +597,7 @@
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 4
-                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score4 }}</b>/100</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score4|default_if_none:"0" }}</b>/100</span>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-info" style="width: {{ percent_score4 }}"></div>
                     </div>
@@ -605,7 +605,7 @@
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 5
-                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score5 }}</b>/140</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score5|default_if_none:"0" }}</b>/140</span>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-info" style="width: {{ percent_score5 }}"></div>
                     </div>
@@ -613,7 +613,7 @@
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 6
-                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score6 }}</b>/160</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score6|default_if_none:"0" }}</b>/160</span>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-info" style="width: {{ percent_score6 }}"></div>
                     </div>
@@ -621,7 +621,7 @@
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 7
-                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score7 }}</b>/240</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score7|default_if_none:"0" }}</b>/240</span>
                     <div class="progress progress-sm">
                       <div class="progress-bar bg-info" style="width: {{ percent_score7 }}"></div>
                     </div>
