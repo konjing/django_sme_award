@@ -3,10 +3,10 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from app_sme12.models import SmeCompetition, FormRegister
+from app_sme12.models import SmeCompetition, FormRegister, FormSiteVisit, Employment, Revenue, AuthorizeCapital, ProfitPrevious, Promote
 from app_backend.models import Owner, Enterpise, Competition, BusinessGroup, BusinessModel, BusinessType, Province, Amphur, Tumbol
 
-from app_sme12.forms import RegistrationForm, Employment, Revenue, AuthorizeCapital, ProfitPrevious, Promote
+from app_sme12.forms import RegistrationForm, SitevisitForm
 
 @login_required(login_url='login')
 def dashboardView(request):
@@ -14,6 +14,7 @@ def dashboardView(request):
     context = {}
     return render(request, 'app_sme12/dashboard.html', context)
 
+#### Form View ---------------------------------------------------------------
 @login_required(login_url='login')
 def registerFormView(request):
     """ แบบฟอร์มลงทะเบียน """
@@ -150,6 +151,58 @@ def registerFormView(request):
 
     context = {'form':form, 'business_model':business_model, 'init_amphur':init_amphur}
     return render(request, 'app_sme12/register_form.html', context)
+
+@login_required(login_url='login')
+def sitevisiteFormView(request, ent_id, comp_id):    
+    form = SitevisitForm(None, instance=sme_comp)
+    
+    if request.method == 'POST':
+        form = SitevisitForm(request.POST)
+        ent_obj = get_object_or_404(Enterpise, pk=ent_id)
+        if form.is_valid:
+            form_sitevisit = FormSiteVisit.objects.create(
+                enterpise = ent_obj,
+                site_score1 = request.POST.get('site_score1'),
+                site_score2 = request.POST.get('site_score2'),
+                site_score3 = request.POST.get('site_score3'),
+                site_score4 = request.POST.get('site_score4'),
+                site_score5 = request.POST.get('site_score5'),
+                site_score6 = request.POST.get('site_score6'),
+                site_score7 = request.POST.get('site_score7'),
+            )
+
+            sme_competition = get_object_or_404(SmeCompetition, pk=comp_id)
+            sme_competition.form_site_visit = form_sitevisit
+            sme_competition.save()
+            messages.success(request, 'ให้คะแนน {} เสร็จสิ้น'.format(enterpise.name))        
+
+        return redirect('evaluate-list')
+
+    context = {'form':form, 'enterpise':enterpise}
+    return render(request, 'app_sme12/evaluate_form.html', context)
+
+#### Update View ---------------------------------------------------------------
+@login_required(login_url='login')
+def sitevisiteUpdate(request, sitevisit_id):
+    sitevisit = get_object_or_404(FormSiteVisit, pk=sitevisit_id)
+    form = SitevisitForm(None, instance=sitevisit)
+    if request.method == 'POST':
+        form = SitevisitForm(request.POST)
+        if form.is_valid:
+            sitevisit.site_score1 = int(request.POST.get('site_score1'))
+            sitevisit.site_score2 = int(request.POST.get('site_score2'))
+            sitevisit.site_score3 = int(request.POST.get('site_score3'))
+            sitevisit.site_score4 = int(request.POST.get('site_score4'))
+            sitevisit.site_score5 = int(request.POST.get('site_score5'))
+            sitevisit.site_score6 = int(request.POST.get('site_score6'))
+            sitevisit.site_score7 = int(request.POST.get('site_score7'))
+            sitevisit.save()
+            messages.success(request, 'แก้ไขคะแนน {} เสร็จสิ้น'.format(sitevisit.enterpise))        
+
+        return redirect('evaluate-list')
+
+    context = {'form':form, 'sitevisit':sitevisit}
+    return render(request, 'app_sme12/evaluate_form_update.html', context)
 
 #### List View ---------------------------------------------------------------
 @login_required(login_url='login')
@@ -311,7 +364,23 @@ def smeInfo(request, compet_id):
     str_bus_type = str(query_obj.enterpise.business_type)
     str_website = str(query_obj.enterpise.website)
 
-    context = {'query_obj':query_obj, 'str_bus_type':str_bus_type, 'str_website':str_website}
+    percent_score1 = format(query_obj.form_site_visit.site_score1/120, '.0%')
+    percent_score2 = format(query_obj.form_site_visit.site_score2/120, '.0%')
+    percent_score3 = format(query_obj.form_site_visit.site_score3/120, '.0%')
+    percent_score4 = format(query_obj.form_site_visit.site_score4/100, '.0%')
+    percent_score5 = format(query_obj.form_site_visit.site_score5/140, '.0%')
+    percent_score6 = format(query_obj.form_site_visit.site_score6/160, '.0%')
+    percent_score7 = format(query_obj.form_site_visit.site_score7/240, '.0%')
+    total_score = query_obj.form_site_visit.site_score1 + query_obj.form_site_visit.site_score2 \
+                + query_obj.form_site_visit.site_score3 + query_obj.form_site_visit.site_score4 \
+                + query_obj.form_site_visit.site_score5 + query_obj.form_site_visit.site_score6 \
+                + query_obj.form_site_visit.site_score7
+    context = {'query_obj':query_obj, 'str_bus_type':str_bus_type, 'str_website':str_website, 
+                'percent_score1':percent_score1, 'percent_score2':percent_score2,
+                'percent_score3':percent_score3, 'percent_score4':percent_score4,
+                'percent_score5':percent_score5, 'percent_score6':percent_score6,
+                'percent_score7':percent_score7, 'total_score':total_score
+            }
     return render(request, 'app_sme12/sme_info.html', context)
 
 

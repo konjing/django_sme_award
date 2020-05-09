@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import validators
 from app_backend.models import Enterpise, Competition, BusinessType
 
 
@@ -128,11 +129,22 @@ class FormInterview(models.Model):
 
 class FormSiteVisit(models.Model):
     """ ฟอร์ม site visit """
-    visiter = models.CharField(verbose_name='ผู้ไปเยี่ยมชม', max_length=200)
+    enterpise = models.ForeignKey(Enterpise, blank=True, null=True, on_delete=models.SET_NULL) 
+    site_score1 = models.IntegerField(verbose_name='หมวดที่ 1 บทบาทของผู้บริหารในการนำองค์กร', null=True, blank=True)
+    site_score2 = models.IntegerField(verbose_name='หมวดที่ 2. การวางแผนการดำเนินธุรกิจ', null=True, blank=True)
+    site_score3 = models.IntegerField(verbose_name='หมวดที่ 3. การมุ่งเน้นลูกค้าและตลาด', null=True, blank=True)
+    site_score4 = models.IntegerField(verbose_name='หมวดที่ 4. การวัด วิเคราะห์และจัดการความรู้', null=True, blank=True)
+    site_score5 = models.IntegerField(verbose_name='หมวดที่ 5. การบริหารทรัพยากรบุคคล', null=True, blank=True)
+    site_score6 = models.IntegerField(verbose_name='หมวดที่ 6. การจัดการกระบวนการ', null=True, blank=True)
+    site_score7 = models.IntegerField(verbose_name='หมวดที่ 7. ผลลัพธ์ทางธุรกิจ', null=True, blank=True)
+    visiter = models.CharField(verbose_name='ผู้ไปเยี่ยมชม', max_length=200, null=True, blank=True)
     visit_at = models.DateField(verbose_name='วันที่', auto_now_add=True)
 
     def __str__(self):
-        return self.visiter
+        return '{}'.format(self.enterpise)
+
+    def total_score(self):        
+        return sum([self.site_score1, self.site_score2, self.site_score3, self.site_score4, self.site_score5, self.site_score6, self.site_score7])
 
 
 class SmeCompetition(models.Model):

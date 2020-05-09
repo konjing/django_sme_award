@@ -1,8 +1,11 @@
 from django import forms
+from django.forms import ModelForm
 from app_backend.models import Province, Amphur, Tumbol, BusinessModel, BusinessGroup, BusinessType
-from app_sme12.models import Employment, Revenue, AuthorizeCapital, ProfitPrevious, Promote
+from app_sme12.models import Employment, Revenue, AuthorizeCapital, ProfitPrevious, Promote, FormSiteVisit
+
 
 class RegistrationForm(forms.Form):
+    """ ฟอร์มลงทะเบียนประกวด sme ครั้งที่ 12 """
     regis_code = forms.CharField(label='เลขสมัคร', max_length=20)
 
     ent_name = forms.CharField(label='ชื่อสถานประกอบการ', max_length=200)
@@ -83,6 +86,10 @@ class RegistrationForm(forms.Form):
     # f_tsic_no = forms.CharField(label='เลข tsic', max_length=20, required=False)
 
 
- 
+class SitevisitForm(ModelForm):
+    """ ฟอร์มให้คะแนนสถานประกอบการ Site visit """
+    class Meta:
+         model = FormSiteVisit
+         fields = '__all__'
     
     

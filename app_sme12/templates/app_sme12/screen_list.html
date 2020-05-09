@@ -109,39 +109,45 @@
                   <thead>
                   <tr>
                     <th></th>  
-                    <th class="reffilter">ประเภทรางวัล</th>
+                    <th class="reffilter">เลขสมัคร</th>  
                     <th class="reffilter">บริษัทย์</th>
                     <th class="reffilter">รหัส สสว.</th>                    
-                    <th class="reffilter">รหัส SME CONNEXT</th>                    
-                    <th class="reffilter">สถานะ</th>
-                    <th>form</th>
-                    <th></th>
+                    <th class="reffilter">รหัส SME CONNEXT</th>  
+                    <th class="reffilter">จังหวัด</th>
+                    <th class="reffilter">รหัสไปรษณีย์</th>
+                    <th class="reffilter">ประเภทกิจการ</th>   
+                    <th></th>                    
                   </tr>
                   </thead>
                   <tbody>
                   {% for register in queryset %}
                   <tr>
                     <td><input type="checkbox"  name="regis_id" value="{{ register.id }}" ></td>  
-                    <td>{{ register.competition }}</td>
-                    <td><a href="{% url 'profile' %}">{{ register.enterpise }}</a></td> 
-                    <td>{{ register.sme_code }}</td>
-                    <td>{{ register.sme_connext_code }}</td>                   
-                    <td>{{ register.state }}</td>
                     <td>{{ register.form_register }}</td>
-                    <td><a href="#">Info</a></td>
+                    <td>{{ register.enterpise.name }}</td>   
+                    <td>{{ register.sme_code }}</td>
+                    <td>{{ register.sme_connext_code }}</td>  
+                    <td>{{ register.enterpise.province }}</td>
+                    <td>{{ register.enterpise.postcode }}</td>
+                    <td>{{ register.enterpise.business_type }}</td>  
+                    <td><a href="{% url 'sme-info' register.id %}">
+                          <button type="button" class="btn btn-info">ข้อมูล</button>
+                        </a>
+                    </td>                    
                   </tr> 
                   {% endfor %}                 
                   </tbody>
                   <tfoot>
                   <tr>
                     <th></th>  
-                    <th class="filter">ประเภทรางวัล</th>
-                    <th class="filter">บริษัทย์</th>   
+                    <th class="filter">เลขสมัคร</th>  
+                    <th class="filter">บริษัทย์</th> 
                     <th class="filter">รหัส สสว.</th>                    
-                    <th class="filter">รหัส SME CONNEXT</th>                 
-                    <th class="filter">สถานะ</th>
-                    <th>form</th>
-                    <th></th>
+                    <th class="filter">รหัส SME CONNEXT</th>   
+                    <th class="filter">จังหวัด</th>
+                    <th class="filter">รหัสไปรษณีย์</th>
+                    <th class="filter">ประเภทกิจการ</th>   
+                    <th></th>                    
                   </tr>
                   </tfoot>
                 </table>

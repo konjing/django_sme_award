@@ -533,15 +533,37 @@
               <div class="row">
                 <div class="col-12">
                   <!-- small box -->
-                  <div class="small-box bg-info">
-                    <div class="inner">
-                      <h3>730/1,000</h3>      
+                  {% if total_score > 799 %}
+                  <div class="small-box bg-success">
+                    <div class="inner">                      
+                        <h3>{{ total_score }}/1,000</h3>
                       <p>คะแนนพิจารณา</p>
                     </div>
                     <div class="icon">
                       <i class="ion ion-pie-graph"></i>
                     </div>
                   </div>
+                  {% elif total_score > 699%}  
+                  <div class="small-box bg-info">
+                    <div class="inner">                      
+                        <h3>{{ total_score }}/1,000</h3>
+                      <p>คะแนนพิจารณา</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-pie-graph"></i>
+                    </div>
+                  </div>
+                  {% else %}
+                  <div class="small-box bg-warning">
+                    <div class="inner">                      
+                        <h3>{{ total_score }}/1,000</h3>
+                      <p>คะแนนพิจารณา</p>
+                    </div>
+                    <div class="icon">
+                      <i class="ion ion-pie-graph"></i>
+                    </div>
+                  </div>
+                  {% endif %}
                 </div>
               </div>
               <div class="row">
@@ -551,57 +573,57 @@
                   </p> -->
                   <div class="progress-group">
                     หมวดที่ 1
-                    <span class="float-right"><b>40</b>/120</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score1 }}</b>/120</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-danger" style="width: 33%"></div>
+                      <div class="progress-bar bg-info" style="width: {{ percent_score1 }}"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 2
-                    <span class="float-right"><b>60</b>/120</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score2 }}</b>/120</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-warning" style="width: 50%"></div>
+                      <div class="progress-bar bg-info" style="width: {{ percent_score2 }}"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->                  
                   <div class="progress-group">
                     หมวดที่ 3
-                    <span class="float-right"><b>110</b>/120</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score3 }}</b>/120</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-success" style="width: 90%"></div>
+                      <div class="progress-bar bg-info" style="width: {{ percent_score3 }}"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 4
-                    <span class="float-right"><b>60</b>/100</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score4 }}</b>/100</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-warning" style="width: 60%"></div>
+                      <div class="progress-bar bg-info" style="width: {{ percent_score4 }}"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 5
-                    <span class="float-right"><b>120</b>/140</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score5 }}</b>/140</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-success" style="width: 80%"></div>
+                      <div class="progress-bar bg-info" style="width: {{ percent_score5 }}"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 6
-                    <span class="float-right"><b>140</b>/160</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score6 }}</b>/160</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-success" style="width: 75%"></div>
+                      <div class="progress-bar bg-info" style="width: {{ percent_score6 }}"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
                   <div class="progress-group">
                     หมวดที่ 7
-                    <span class="float-right"><b>200</b>/240</span>
+                    <span class="float-right"><b>{{ query_obj.form_site_visit.site_score7 }}</b>/240</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-success" style="width: 80%"></div>
+                      <div class="progress-bar bg-info" style="width: {{ percent_score7 }}"></div>
                     </div>
                   </div>
                   <!-- /.progress-group -->
@@ -617,5 +639,6 @@
 {% block scripts %}
 <!-- AdminLTE for demo purposes -->
 <script src="{% static 'adminlte/dist/js/demo.js' %}"></script>
-
+<!-- page script -->
+<script src="{% static 'app_sme12/js/sme_info.js'%}"></script>
 {% endblock %}

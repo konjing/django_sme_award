@@ -12,6 +12,9 @@ urlpatterns = [
     path('candidate-list/', views.candidateListView, name='candidate-list'),
     
     path('register-form/', views.registerFormView, name='register-form'),
+    path('sitevisite-form/<int:ent_id>/<int:comp_id>', views.sitevisiteFormView, name='sitevisite-form'),
+
+    path('sitevisite-update/<int:sitevisit_id>', views.sitevisiteUpdate, name='sitevisite-update'),
 
     path('register-cancle/<int:compet_id>', views.cancleRegister, name='register-cancle'),
 
