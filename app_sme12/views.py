@@ -7,6 +7,7 @@ from app_sme12.models import SmeCompetition, FormRegister, FormSiteVisit, Employ
 from app_backend.models import Owner, Enterpise, Competition, BusinessGroup, BusinessModel, BusinessType, Province, Amphur, Tumbol
 
 from app_sme12.forms import RegistrationForm, SitevisitForm
+import sweetify
 
 @login_required(login_url='login')
 def dashboardView(request):
@@ -143,8 +144,8 @@ def registerFormView(request):
                 promote_obj =Promote.objects.get(id=int(f_pro))
                 form_register.promote.add(promote_obj) 
             
-
-            messages.success(request, 'ลงทะเบียนผู้สมัครสำเร็จ')        
+            sweetify.success(request, 'ลงทะเบียนผู้สมัครสำเร็จ')
+            # messages.success(request, 'ลงทะเบียนผู้สมัครสำเร็จ')        
             return redirect('register-list')
         # else:
         #     return HttpResponse('Form Invalid')
@@ -154,11 +155,11 @@ def registerFormView(request):
 
 @login_required(login_url='login')
 def sitevisiteFormView(request, ent_id, comp_id):    
-    form = SitevisitForm(None, instance=sme_comp)
+    form = SitevisitForm()
+    ent_obj = get_object_or_404(Enterpise, pk=ent_id)
     
     if request.method == 'POST':
         form = SitevisitForm(request.POST)
-        ent_obj = get_object_or_404(Enterpise, pk=ent_id)
         if form.is_valid:
             form_sitevisit = FormSiteVisit.objects.create(
                 enterpise = ent_obj,
@@ -174,11 +175,13 @@ def sitevisiteFormView(request, ent_id, comp_id):
             sme_competition = get_object_or_404(SmeCompetition, pk=comp_id)
             sme_competition.form_site_visit = form_sitevisit
             sme_competition.save()
-            messages.success(request, 'ให้คะแนน {} เสร็จสิ้น'.format(enterpise.name))        
+
+            sweetify.success(request, 'ให้คะแนน {} เสร็จสิ้น'.format(ent_obj.name))
+            # messages.success(request, 'ให้คะแนน {} เสร็จสิ้น'.format(ent_obj.name))        
 
         return redirect('evaluate-list')
 
-    context = {'form':form, 'enterpise':enterpise}
+    context = {'form':form, 'ent_obj':ent_obj}
     return render(request, 'app_sme12/evaluate_form.html', context)
 
 #### Update View ---------------------------------------------------------------
@@ -197,7 +200,9 @@ def sitevisiteUpdate(request, sitevisit_id):
             sitevisit.site_score6 = int(request.POST.get('site_score6'))
             sitevisit.site_score7 = int(request.POST.get('site_score7'))
             sitevisit.save()
-            messages.success(request, 'แก้ไขคะแนน {} เสร็จสิ้น'.format(sitevisit.enterpise))        
+
+            sweetify.success(request, 'แก้ไขคะแนน {} เสร็จสิ้น'.format(sitevisit.enterpise))
+            # messages.success(request, 'แก้ไขคะแนน {} เสร็จสิ้น'.format(sitevisit.enterpise))        
 
         return redirect('evaluate-list')
 
@@ -222,7 +227,8 @@ def registerListView(request):
             for regis_id in id_list:
                 SmeCompetition.objects.filter(id=regis_id).update(state=2)
 
-            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+            sweetify.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select))
+            # messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
         else:
             id_list = request.POST.getlist('regis_id')
             total_select = len(id_list)
@@ -251,7 +257,8 @@ def screenListView(request):
             total_select = len(id_list)
             for regis_id in id_list:
                 SmeCompetition.objects.filter(id=regis_id).update(state=4)
-            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+            sweetify.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select))
+            # messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
         else:
             id_list = request.POST.getlist('regis_id')
             total_select = len(id_list)
@@ -279,7 +286,8 @@ def interviewListView(request):
             total_select = len(id_list)
             for regis_id in id_list:
                 SmeCompetition.objects.filter(id=regis_id).update(state=6)
-            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+            sweetify.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select))
+            # messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
         else:
             id_list = request.POST.getlist('regis_id')
             total_select = len(id_list)
@@ -307,7 +315,9 @@ def evaluateListView(request):
             total_select = len(id_list)
             for regis_id in id_list:
                 SmeCompetition.objects.filter(id=regis_id).update(state=8)
-            messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
+
+            sweetify.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select))
+            # messages.success(request, 'ผู้สมัครผ่าน {} ราย '.format(total_select)) 
         else:
             id_list = request.POST.getlist('regis_id')
             total_select = len(id_list)
@@ -354,7 +364,8 @@ def cancleRegister(request, compet_id):
     query_obj.active = False
     query_obj.save()
 
-    messages.warning(request, 'ยกเลิกผู้สมัคร {} '.format(query_obj.enterpise))
+    sweetify.success(request, 'ยกเลิกผู้สมัคร {} '.format(query_obj.enterpise))
+    # messages.warning(request, 'ยกเลิกผู้สมัคร {} '.format(query_obj.enterpise))
     context = {}
     return redirect('register-list')
 

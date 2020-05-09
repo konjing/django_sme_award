@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
 
     'widget_tweaks',
+    'sweetify',
 
     'app_backend',
     'app_sme12',
@@ -76,6 +77,9 @@ TEMPLATES = [
         },
     },
 ]
+
+# possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
