@@ -1,0 +1,107 @@
+{% extends 'app_backend/base.html' %}
+{% load static %}
+
+{% block styles %}
+<!-- Ionicons -->
+<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
+<link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+
+{% endblock %}
+
+{% block headcontent %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">รายการสถานประกอบการ</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock%}
+
+{% block content %}
+    <section class="content">        
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+            <form action="" method="POST">
+            {% csrf_token %}
+              
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="sme-list" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th class="reffilter">บริษัทย์</th>
+                    <th class="reffilter">รหัส สสว.</th>                    
+                    <th class="reffilter">รหัส SME CONNEXT</th>  
+                    <th class="reffilter">จังหวัด</th>
+                    <th class="reffilter">รหัสไปรษณีย์</th>
+                    <th class="reffilter">ประเภทกิจการ</th>   
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for record in queryset %}
+                  <tr>
+                    <td>{{ record.name }}</td>   
+                    <td>{{ record.sme_code }}</td>
+                    <td>{{ record.sme_connext_code }}</td>  
+                    <td>{{ record.province }}</td>
+                    <td>{{ record.postcode }}</td>
+                    <td>{{ record.business_type }}</td>  
+                    <td><a href="{% url 'enterpise-detail' record.id %}">
+                          <button type="button" class="btn btn-info">ข้อมูล</button>
+                        </a>
+                    </td>                   
+                  </tr> 
+                  {% endfor %}                 
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th class="filter">บริษัทย์</th> 
+                    <th class="filter">รหัส สสว.</th>                    
+                    <th class="filter">รหัส SME CONNEXT</th>   
+                    <th class="filter">จังหวัด</th>
+                    <th class="filter">รหัสไปรษณีย์</th>
+                    <th class="filter">ประเภทกิจการ</th>   
+                    <th></th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </form>
+            </div>            
+            <!-- /.card -->  
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </section>
+
+      {% include 'app_backend/messages/modal/cancle_confirm.html' %}
+      {% include 'app_backend/messages/modal/notapprove_confirm.html' %}
+{% endblock%}
+
+
+{% block scripts %}
+<!-- DataTables -->
+<script src="{% static 'adminlte/plugins/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+
+<!-- page script -->
+<script src="{% static 'app_backend/js/enterpise_list.js' %}"></script>
+
+{% endblock %}
