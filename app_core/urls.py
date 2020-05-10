@@ -18,7 +18,7 @@ from django.urls import include, path
 from app_sme12 import views
 
 urlpatterns = [
-    path('', views.dashboardView, name='dashboard' ),
+    path('', views.dashboardRegisView, name='dashboard' ),
     path('admin/', admin.site.urls),
     path('backend/', include('app_backend.urls')),
     path('sme12/', include('app_sme12.urls')),

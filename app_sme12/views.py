@@ -9,11 +9,6 @@ from app_backend.models import Owner, Enterpise, Competition, BusinessGroup, Bus
 from app_sme12.forms import RegistrationForm, SitevisitForm
 import sweetify
 
-@login_required(login_url='login')
-def dashboardView(request):
-
-    context = {}
-    return render(request, 'app_sme12/dashboard.html', context)
 
 #### Form View ---------------------------------------------------------------
 @login_required(login_url='login')
@@ -356,6 +351,20 @@ def candidateListView(request):
 
     context = {'queryset':queryset, 'total_bus':total_bus, 'bus_type_production':bus_type_production, 'bus_type_service':bus_type_service, 'bus_type_farm':bus_type_farm}
     return render(request, 'app_sme12/candidate_list.html', context)
+
+#### DashBoard View ---------------------------------------------------------------
+@login_required(login_url='login')
+def dashboardRegisView(request):
+
+    context = {}
+    return render(request, 'app_sme12/dashboard_regis.html', context)
+
+@login_required(login_url='login')
+def dashboardScoreView(request):
+
+    context = {}
+    return render(request, 'app_sme12/dashboard_score.html', context)
+
 
 #### Cancle View ---------------------------------------------------------------
 @login_required(login_url='login')

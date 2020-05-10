@@ -45,23 +45,17 @@
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{% url 'dashboard-sme' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>DashBoard</p>
-              </a>
-            </li>
+          <ul class="nav nav-treeview">            
             <li class="nav-item">
               <!-- <a href="{% url 'register-form' %}" class="nav-link"> -->
               <a href="{% url 'register-form' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="far fa-registered nav-icon"></i>
                 <p>ฟอร์มลงทะเบียน</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'register-list' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-tasks nav-icon"></i>
                 <p>ตรวจสอบคุณสมบัติ
                   <span class="badge badge-info right">6</span>
                 </p>
@@ -69,32 +63,44 @@
             </li>
             <li class="nav-item">
               <a href="{% url 'screen-list' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-tasks nav-icon"></i>
                 <p>ตรวจประเมินเบื้องต้น</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'interview-list' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-tasks nav-icon"></i>
                 <p>สัมภาษณ์ไป Site visit</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'evaluate-list' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-tasks nav-icon"></i>
                 <p>Site visit</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="{% url 'candidate-list' %}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-tasks nav-icon"></i>
                 <p>สรุปผ่านเกณฑ์แต่ละกลุ่ม</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
+                <i class="fas fa-trophy nav-icon"></i>
                 <p>ตัดสินรางวัล</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'dashboard-regis' %}" class="nav-link">
+                <i class="fas fa-chart-line nav-icon"></i>
+                <p>DashBoard(ผู้สมัคร)</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'dashboard-score' %}" class="nav-link">
+                <i class="fas fa-chart-line nav-icon"></i>
+                <p>DashBoard(ผ่านเกณฑ์)</p>
               </a>
             </li>
           </ul>
@@ -109,7 +115,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="{% url 'dashboard-sme' %}" class="nav-link">
+              <a href="{% url 'dashboard-regis' %}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>DashBoard</p>
               </a>

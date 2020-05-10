@@ -2,7 +2,9 @@ from django.urls import path
 from app_sme12 import views
 
 urlpatterns = [
-    path('dashboard-sme/', views.dashboardView, name='dashboard-sme'),
+    path('dashboard-regis/', views.dashboardRegisView, name='dashboard-regis'),
+    path('dashboard-score/', views.dashboardScoreView, name='dashboard-score'),
+
     path('sme-info/<int:compet_id>', views.smeInfo, name='sme-info'),
 
     path('register-list/', views.registerListView, name='register-list' ),

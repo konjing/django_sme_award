@@ -1,0 +1,464 @@
+{% extends 'app_backend/base.html' %}
+{% load static %}
+
+{% block styles %}
+<!-- overlayScrollbars -->
+<link rel="stylesheet" href="{% static 'adminlte/plugins/overlayScrollbars/css/OverlayScrollbars.min.css' %}">
+  
+{% endblock %}
+
+{% block headcontent %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Dash Board(ผ่านเกณฑ์)</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock%}
+
+{% block content %}
+<section class="content">
+    <div class="container-fluid">
+        <!-- Info boxes -->
+       
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-md-8">   
+              <!-- 4 กล่องข้อมูล -->
+              <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>  
+                    <div class="info-box-content">
+                      <span class="info-box-text">ภาคการผลิต</span>
+                      <span class="info-box-number">150 ราย</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>  
+                    <div class="info-box-content">
+                      <span class="info-box-text">ภาคบริการ ค้าส่ง ค้าปลีก</span>
+                      <span class="info-box-number">220 ราย</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->  
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>  
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-tractor"></i></span>  
+                    <div class="info-box-content">
+                      <span class="info-box-text">ภาคธุรกิจเกษตร</span>
+                      <span class="info-box-number">120 ราย</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                      <div class="info-box-content">
+                      <span class="info-box-text">รวมทั้งหมด</span>
+                      <span class="info-box-number">490 ราย</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+              </div>  
+
+              <!-- กราฟเปรียบเทียบปีที่แล้ว -->
+              <div class="card">
+                <div class="card-header border-0">
+                  <div class="d-flex justify-content-between">
+                    <h3 class="card-title">เปรียบเทียบคะแนนเฉลี่ย(%)</h3>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="d-flex">
+                    <p class="d-flex flex-column">
+                      <span class="text-bold text-lg">คะแนนเฉลี่ย(%)</span>
+                    </p>
+                    <p class="ml-auto d-flex flex-column text-right">
+                      <span class="text-success">
+                        <i class="fas fa-arrow-up"></i> 20.4%
+                      </span>
+                      <span class="text-muted">เทียบเป้าหมาย</span>
+                    </p>
+                  </div>
+                  <!-- /.d-flex -->  
+                  <div class="position-relative mb-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                    <canvas id="sales-chart" height="200" style="display: block; width: 487px; height: 200px;" width="487" class="chartjs-render-monitor"></canvas>
+                  </div>  
+                  <div class="d-flex flex-row justify-content-end">
+                    <span class="mr-2">
+                      <i class="fas fa-square text-primary"></i> คะแนนเฉลี่ย
+                    </span>  
+                    <span>
+                      <i class="fas fa-square text-gray"></i> คะแนนเป้าหมาย
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- กราฟเปรียบเทียบเป้าหมายที่ตั้งไว้ -->
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">ตารางจัดอันดับ</h5>  
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>                    
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">                 
+                  <div class="row">
+                    <!-- อันดับคะแนนสถานประกอปการ -->
+                    <div class="col-md-6">
+                      <p class="text-center">
+                        <strong>อันดับคะแนนสถานประกอบการ</strong>
+                      </p>  
+                      <div class="progress-group">
+                        ชื่อสถานประกอบการ #1
+                        <span class="float-right"><b>950</b>/1,000</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-primary" style="width: 95%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->  
+                      <div class="progress-group">
+                        ชื่อสถานประกอบการ #2
+                        <span class="float-right"><b>900</b>/1,000</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-danger" style="width: 90%"></div>
+                        </div>
+                      </div>  
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        ชื่อสถานประกอบการ #3
+                        <span class="float-right"><b>850</b>/1,000</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-success" style="width: 85%"></div>
+                        </div>
+                      </div>  
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        ชื่อสถานประกอบการ #4
+                        <span class="float-right"><b>800</b>/1,000</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-warning" style="width: 80%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        ชื่อสถานประกอบการ #5
+                        <span class="float-right"><b>750</b>/1,000</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-warning" style="width: 75%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                    </div>   
+                    <!-- อันดับจังหวัดที่สถานประกอบผ่านเกณฑ์ -->
+                    <div class="col-md-6">
+                      <p class="text-center">
+                        <strong>อันดับจังหวัดที่สถานประกอบผ่านเกณฑ์</strong>
+                      </p>  
+                      <div class="progress-group">
+                        จังหวัด ก
+                        <span class="float-right"><b>15</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-primary" style="width: 100%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->  
+                      <div class="progress-group">
+                        จังหวัด ข
+                        <span class="float-right"><b>12</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-danger" style="width: 80%"></div>
+                        </div>
+                      </div>  
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        จังหวัด ค
+                        <span class="float-right"><b>10</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-success" style="width: 70%"></div>
+                        </div>
+                      </div>  
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        จังหวัด ง
+                        <span class="float-right"><b>9</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-warning" style="width: 60%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        จังหวัด จ
+                        <span class="float-right"><b>7</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-warning" style="width: 50%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                    </div>
+                  </div>                  
+                </div>
+                <!-- ./card-body -->
+                
+                <!-- /.card-footer -->
+              </div>              
+            </div>
+            <div class="col-md-4">
+                <!-- Dinut Chart กลุ่มรางวัลสุดยอด -->                
+                <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">สัดส่วนกลุ่มรางวัลสุดยอด SME แห่งชาติ</h3>      
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-8">
+                          <div class="chart-responsive"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                            <canvas id="pieChart" height="99" width="199" class="chartjs-render-monitor" style="display: block; width: 199px; height: 99px;"></canvas>
+                          </div>
+                          <!-- ./chart-responsive -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-4">
+                          <ul class="chart-legend clearfix">
+                            <li><i class="far fa-circle text-danger"></i> ธุรกิจอาหาร</li>
+                            <li><i class="far fa-circle text-success"></i> ธุรกิจสิ่งทอ</li>
+                            <li><i class="far fa-circle text-warning"></i> ธุรกิจค้าปลีก</li>
+                            <li><i class="far fa-circle text-info"></i> ธุรกิจค้าส่ง</li>
+                            <li><i class="far fa-circle text-primary"></i> ธุรกิจการเกษตร</li>
+                            <li><i class="far fa-circle text-secondary"></i> อื่นๆ</li>
+                          </ul>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer bg-white p-0">
+                      <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                          <a href="#" class="nav-link">
+                            ภาคการผลิต
+                            <span class="float-right text-danger">
+                              <i class="fas fa-arrow-down text-sm"></i>
+                              12%</span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="#" class="nav-link">
+                            ภาคบริการ ค้าส่ง หรือค้าปลีก
+                            <span class="float-right text-success">
+                              <i class="fas fa-arrow-up text-sm"></i> 4%
+                            </span>
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a href="#" class="nav-link">
+                            ธุรกิจเกษตร
+                            <span class="float-right text-warning">
+                              <i class="fas fa-arrow-left text-sm"></i> 0%
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- /.footer -->
+                </div>
+                <!-- Dinut Chart กลุ่มรางวัล SME ดีเด่น -->                
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">สัดส่วนกลุ่มรางวัล SME ดีเด่น</h3>      
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="chart-responsive"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                          <canvas id="pieChart2" height="99" width="199" class="chartjs-render-monitor" style="display: block; width: 199px; height: 99px;"></canvas>
+                        </div>
+                        <!-- ./chart-responsive -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-md-4">
+                        <ul class="chart-legend clearfix">
+                          <li><i class="far fa-circle text-danger"></i> ธุรกิจอาหาร</li>
+                          <li><i class="far fa-circle text-success"></i> ธุรกิจสิ่งทอ</li>
+                          <li><i class="far fa-circle text-warning"></i> ธุรกิจค้าปลีก</li>
+                          <li><i class="far fa-circle text-info"></i> ธุรกิจค้าส่ง</li>
+                          <li><i class="far fa-circle text-primary"></i> ธุรกิจการเกษตร</li>
+                          <li><i class="far fa-circle text-secondary"></i> อื่นๆ</li>
+                        </ul>
+                      </div>
+                      <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer bg-white p-0">
+                    <ul class="nav nav-pills flex-column">
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          ภาคการผลิต
+                          <span class="float-right text-danger">
+                            <i class="fas fa-arrow-down text-sm"></i>
+                            12%</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          ภาคบริการ ค้าส่ง หรือค้าปลีก
+                          <span class="float-right text-success">
+                            <i class="fas fa-arrow-up text-sm"></i> 4%
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          ธุรกิจเกษตร
+                          <span class="float-right text-warning">
+                            <i class="fas fa-arrow-left text-sm"></i> 0%
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- /.footer -->
+                </div>
+                <!-- Dinut Chart กลุ่มรางวัลมาตรฐาน SME -->                
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">สัดส่วนกลุ่มรางวัลมาตรฐาน SME</h3>      
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                      </button>
+                      <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <!-- /.card-header -->
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="chart-responsive"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                          <canvas id="pieChart3" height="99" width="199" class="chartjs-render-monitor" style="display: block; width: 199px; height: 99px;"></canvas>
+                        </div>
+                        <!-- ./chart-responsive -->
+                      </div>
+                      <!-- /.col -->
+                      <div class="col-md-4">
+                        <ul class="chart-legend clearfix">
+                          <li><i class="far fa-circle text-danger"></i> ธุรกิจอาหาร</li>
+                          <li><i class="far fa-circle text-success"></i> ธุรกิจสิ่งทอ</li>
+                          <li><i class="far fa-circle text-warning"></i> ธุรกิจค้าปลีก</li>
+                          <li><i class="far fa-circle text-info"></i> ธุรกิจค้าส่ง</li>
+                          <li><i class="far fa-circle text-primary"></i> ธุรกิจการเกษตร</li>
+                          <li><i class="far fa-circle text-secondary"></i> อื่นๆ</li>
+                        </ul>
+                      </div>
+                      <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+                  </div>
+                  <!-- /.card-body -->
+                  <div class="card-footer bg-white p-0">
+                    <ul class="nav nav-pills flex-column">
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          ภาคการผลิต
+                          <span class="float-right text-danger">
+                            <i class="fas fa-arrow-down text-sm"></i>
+                            12%</span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          ภาคบริการ ค้าส่ง หรือค้าปลีก
+                          <span class="float-right text-success">
+                            <i class="fas fa-arrow-up text-sm"></i> 4%
+                          </span>
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a href="#" class="nav-link">
+                          ธุรกิจเกษตร
+                          <span class="float-right text-warning">
+                            <i class="fas fa-arrow-left text-sm"></i> 0%
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- /.footer -->
+                </div>                
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+    </div>
+</section>
+{% endblock%}
+
+{% block scripts %}
+<!-- overlayScrollbars -->
+<script src="{% static 'adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js' %}"></script>
+<!-- OPTIONAL SCRIPTS -->
+<script src="{% static 'adminlte/dist/js/demo.js' %}"></script>
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+<script src="{% static 'adminlte/plugins/jquery-mousewheel/jquery.mousewheel.js' %}"></script>
+<script src="{% static 'adminlte/plugins/raphael/raphael.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/jquery-mapael/jquery.mapael.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/jquery-mapael/maps/usa_states.min.js' %}"></script>
+<!-- ChartJS -->
+<script src="{% static 'adminlte/plugins/chart.js/Chart.min.js' %}"></script>
+
+<!-- PAGE SCRIPTS -->
+<script src="{% static 'app_sme12/js/dashboard_score.js' %}"></script>
+
+{% endblock %}
