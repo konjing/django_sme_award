@@ -575,7 +575,13 @@
                     หมวดที่ 1
                     <span class="float-right"><b>{{ query_obj.form_site_visit.site_score1|default_if_none:"0" }}</b>/120</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-info" style="width: {{ percent_score1 }}"></div>
+                      {% if query_obj.form_site_visit.site_score1 > 96 %}
+                      <div class="progress-bar bg-success" style="width: {{ percent_score1 }}"></div>
+                      {% elif query_obj.form_site_visit.site_score1 > 72%}
+                      <div class="progress-bar bg-warning" style="width: {{ percent_score1 }}"></div>
+                      {% else %}
+                      <div class="progress-bar bg-danger" style="width: {{ percent_score1 }}"></div>
+                      {% endif %}
                     </div>
                   </div>
                   <!-- /.progress-group -->
@@ -583,7 +589,13 @@
                     หมวดที่ 2
                     <span class="float-right"><b>{{ query_obj.form_site_visit.site_score2|default_if_none:"0" }}</b>/120</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-info" style="width: {{ percent_score2 }}"></div>
+                      {% if query_obj.form_site_visit.site_score2 > 96 %}
+                      <div class="progress-bar bg-success" style="width: {{ percent_score2 }}"></div>
+                      {% elif query_obj.form_site_visit.site_score2 > 72 %}
+                      <div class="progress-bar bg-warning" style="width: {{ percent_score2 }}"></div>
+                      {% else %}
+                      <div class="progress-bar bg-danger" style="width: {{ percent_score2 }}"></div>
+                      {% endif %}
                     </div>
                   </div>
                   <!-- /.progress-group -->                  
@@ -591,7 +603,13 @@
                     หมวดที่ 3
                     <span class="float-right"><b>{{ query_obj.form_site_visit.site_score3|default_if_none:"0" }}</b>/120</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-info" style="width: {{ percent_score3 }}"></div>
+                      {% if query_obj.form_site_visit.site_score1 > 96 %}
+                      <div class="progress-bar bg-success" style="width: {{ percent_score3 }}"></div>
+                      {% elif query_obj.form_site_visit.site_score1 > 72%}
+                      <div class="progress-bar bg-warning" style="width: {{ percent_score3 }}"></div>
+                      {% else %}
+                      <div class="progress-bar bg-danger" style="width: {{ percent_score3 }}"></div>
+                      {% endif %}
                     </div>
                   </div>
                   <!-- /.progress-group -->
@@ -599,7 +617,13 @@
                     หมวดที่ 4
                     <span class="float-right"><b>{{ query_obj.form_site_visit.site_score4|default_if_none:"0" }}</b>/100</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-info" style="width: {{ percent_score4 }}"></div>
+                      {% if query_obj.form_site_visit.site_score4 > 80 %}
+                      <div class="progress-bar bg-success" style="width: {{ percent_score4 }}"></div>
+                      {% elif query_obj.form_site_visit.site_score4 > 60 %}
+                      <div class="progress-bar bg-warning" style="width: {{ percent_score4 }}"></div>
+                      {% else %}
+                      <div class="progress-bar bg-danger" style="width: {{ percent_score4 }}"></div>
+                      {% endif %}
                     </div>
                   </div>
                   <!-- /.progress-group -->
@@ -607,7 +631,13 @@
                     หมวดที่ 5
                     <span class="float-right"><b>{{ query_obj.form_site_visit.site_score5|default_if_none:"0" }}</b>/140</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-info" style="width: {{ percent_score5 }}"></div>
+                      {% if query_obj.form_site_visit.site_score5 > 112 %}
+                      <div class="progress-bar bg-success" style="width: {{ percent_score5 }}"></div>
+                      {% elif query_obj.form_site_visit.site_score5 > 84%}
+                      <div class="progress-bar bg-warning" style="width: {{ percent_score5 }}"></div>
+                      {% else %}
+                      <div class="progress-bar bg-danger" style="width: {{ percent_score5 }}"></div>
+                      {% endif %}
                     </div>
                   </div>
                   <!-- /.progress-group -->
@@ -615,7 +645,13 @@
                     หมวดที่ 6
                     <span class="float-right"><b>{{ query_obj.form_site_visit.site_score6|default_if_none:"0" }}</b>/160</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-info" style="width: {{ percent_score6 }}"></div>
+                      {% if query_obj.form_site_visit.site_score6 > 128 %}
+                      <div class="progress-bar bg-success" style="width: {{ percent_score6 }}"></div>
+                      {% elif query_obj.form_site_visit.site_score6 > 96%}
+                      <div class="progress-bar bg-warning" style="width: {{ percent_score6 }}"></div>
+                      {% else %}
+                      <div class="progress-bar bg-danger" style="width: {{ percent_score6 }}"></div>
+                      {% endif %}
                     </div>
                   </div>
                   <!-- /.progress-group -->
@@ -623,7 +659,13 @@
                     หมวดที่ 7
                     <span class="float-right"><b>{{ query_obj.form_site_visit.site_score7|default_if_none:"0" }}</b>/240</span>
                     <div class="progress progress-sm">
-                      <div class="progress-bar bg-info" style="width: {{ percent_score7 }}"></div>
+                      {% if query_obj.form_site_visit.site_score7 > 192 %}
+                      <div class="progress-bar bg-success" style="width: {{ percent_score7 }}"></div>
+                      {% elif query_obj.form_site_visit.site_score7 > 144%}
+                      <div class="progress-bar bg-warning" style="width: {{ percent_score7 }}"></div>
+                      {% else %}
+                      <div class="progress-bar bg-danger" style="width: {{ percent_score7 }}"></div>
+                      {% endif %}
                     </div>
                   </div>
                   <!-- /.progress-group -->
