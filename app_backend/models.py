@@ -142,8 +142,8 @@ class Enterpise(models.Model):
     material = models.TextField(verbose_name='วัตถุดิบในการผลิต', null=True, blank=True)
     otop = models.BooleanField(verbose_name='มีการผลิตสินค้า OTOP หรือไม่', null=True, blank=True)
 
-    # regis_cap = models.DecimalField(verbose_name='ทุนจดทะเบียน', decimal_places=2, max_digits=10, null=True, blank=True)
-    
+    tsic_no = models.CharField(verbose_name='เลข tsic', max_length=20, null=True, blank=True)
+
     def __str__(self):
         return self.name
 

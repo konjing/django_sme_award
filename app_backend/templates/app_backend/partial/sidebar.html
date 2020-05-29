@@ -58,7 +58,7 @@
               <a href="{% url 'register-list' %}" class="nav-link">
                 <i class="fas fa-tasks nav-icon"></i>
                 <p>ตรวจสอบคุณสมบัติ
-                  <span class="badge badge-info right">6</span>
+                  <!-- <span class="badge badge-info right">6</span> -->
                 </p>
               </a>
             </li>
@@ -71,7 +71,7 @@
             <li class="nav-item">
               <a href="{% url 'interview-list' %}" class="nav-link">
                 <i class="fas fa-tasks nav-icon"></i>
-                <p>สัมภาษณ์ไป Site visit</p>
+                <p>สัมภาษณ์</p>
               </a>
             </li>
             <li class="nav-item">
@@ -80,18 +80,12 @@
                 <p>Site visit</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="{% url 'candidate-list' %}" class="nav-link">
-                <i class="fas fa-tasks nav-icon"></i>
-                <p>สรุปผ่านเกณฑ์แต่ละกลุ่ม</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
+            <!-- <li class="nav-item">
+              <a href="{% url 'dashboard-final' %}" class="nav-link">
                 <i class="fas fa-trophy nav-icon"></i>
-                <p>ตัดสินรางวัล</p>
+                <p>สรุปผ่านเกณฑ์</p>
               </a>
-            </li>
+            </li>           
             <li class="nav-item">
               <a href="{% url 'dashboard-regis' %}" class="nav-link">
                 <i class="fas fa-chart-line nav-icon"></i>
@@ -102,6 +96,18 @@
               <a href="{% url 'dashboard-score' %}" class="nav-link">
                 <i class="fas fa-chart-line nav-icon"></i>
                 <p>DashBoard(ผ่านเกณฑ์)</p>
+              </a>
+            </li> -->
+            <li class="nav-item">
+              <a href="{% url 'report-list' %}" class="nav-link">
+                <i class="far fa-file-alt nav-icon"></i>
+                <p>รายงาน</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'export-list' %}" class="nav-link">
+                <i class="fas fa-file-export nav-icon"></i>
+                <p>Export ข้อมูล</p>
               </a>
             </li>
           </ul>
@@ -154,7 +160,7 @@
             <li class="nav-item">
               <a href="{% url 'st-interview-list' %}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>สัมภาษณ์ตามเกณฑ์</p>
+                <p>สัมภาษณ์</p>
               </a>
             </li>
             <li class="nav-item">

@@ -8,6 +8,11 @@
 <!-- DataTables -->
 <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
 <link rel="stylesheet" href="{% static 'adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
+<!-- DataTables button -->
+<link
+  rel="stylesheet"
+  href="{% static 'adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}"
+/>
 {% endblock %}
 
 {% block headcontent %}
@@ -15,7 +20,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="m-0 text-dark">ตรวจประเมินเบื้องต้น</h1>
+          <h1 class="m-0 text-dark">รายชื่อผู้สมัคร {{step_name}} </h1>
         </div><!-- /.col -->
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -29,99 +34,25 @@
 {% endblock%}
 
 {% block content %}
-    <section class="content">
-        <!-- Small boxes (Stat box) -->
-        <div class="row">
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-                <h3>{{ bus_type_production|default_if_none:"--" }} ราย</h3>
-                <p>ภาคการผลิต</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-industry"></i>
-              </div>
-              <a href="#" class="small-box-footer"></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>{{ bus_type_service|default_if_none:"--" }} ราย</h3>
-                <p>ภาคบริการ ค้าส่ง หรือค้าปลีก</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-shopping-cart"></i>
-              </div>
-              <a href="#" class="small-box-footer"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner">
-                <h3>{{ bus_type_farm|default_if_none:"--" }} ราย</h3>
-                <p>ธุรกิจเกษตร</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-tractor"></i>
-              </div>
-              <a href="#" class="small-box-footer"></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-              <div class="inner">
-                <h3>{{ total_bus }} ราย</h3>
-                <p>รวมทุกกลุ่ม</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer"></a>
-            </div>
-          </div>
-          <!-- ./col -->
-        </div>
-        <!-- /.row -->
+    <section class="content">        
         <div class="row">
           <div class="col-12">
-            <div class="card">
-            <form action="" method="POST">
-            {% csrf_token %}
-              <div class="card-header">
-                <div class="btn-group">
-                  <button type="submit" name="approval" value="pass" class="btn btn-block btn-primary">ผ่านประเมิน</button>
-                </div>
-                <div class="btn-group">
-                  <button type="submit" name="approval" value="notpass" class="btn btn-block btn-warning">ไม่ผ่าน</button>
-                </div>
-              </div>
-              <!-- /.card-header -->
+            <div class="card">                         
               <div class="card-body">
                 <table id="sme-list" class="table table-bordered table-hover">
                   <thead>
                   <tr>
-                    <th></th>  
                     <th class="reffilter">เลขสมัคร</th>  
                     <th class="reffilter">บริษัทย์</th>
                     <th class="reffilter">จำนวนจ้างงาน</th>                    
                     <th class="reffilter">รายได้ต่อปี(บาท)</th>
                     <th class="reffilter">จังหวัด</th>
                     <th class="reffilter">ประเภทกิจการ</th>   
-                    <th></th>                    
                   </tr>
                   </thead>
                   <tbody>
                   {% for register in queryset %}
                   <tr>
-                    <td><input type="checkbox"  name="regis_id" value="{{ register.id }}" ></td>  
                     <td>{{ register.form_register }}</td>
                     <td>{{ register.enterpise.name }}</td> 
                     {% if register.form_register.employment %}
@@ -135,30 +66,23 @@
                       <td>{{ register.form_register.revenue_etc}}</td>
                     {% endif %}  
                     <td>{{ register.enterpise.province }}</td>
-                    <td>{{ register.enterpise.business_type }}</td>  
-                    <td><a href="{% url 'sme-info' register.id %}">
-                          <button type="button" class="btn btn-info">ข้อมูล</button>
-                        </a>
-                    </td>                    
+                    <td>{{ register.enterpise.business_type }}</td>
                   </tr> 
                   {% endfor %}                 
                   </tbody>
                   <tfoot>
                   <tr>
-                    <th></th>  
                     <th class="filter">เลขสมัคร</th>  
                     <th class="filter">บริษัทย์</th> 
                     <th class="filter">จำนวนจ้างงาน</th>                    
                     <th class="filter">รายได้ต่อปี(บาท)</th>   
                     <th class="filter">จังหวัด</th>
-                    <th class="filter">ประเภทกิจการ</th>   
-                    <th></th>                    
+                    <th class="filter">ประเภทกิจการ</th>
                   </tr>
                   </tfoot>
                 </table>
               </div>
-              <!-- /.card-body -->
-            </form>
+              <!-- /.card-body -->            
             </div>            
             <!-- /.card -->  
           </div>
@@ -176,6 +100,12 @@
 <script src="{% static 'adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
 <script src="{% static 'adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
 <script src="{% static 'adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+<!-- DataTables button -->
+<script src="{% static 'adminlte/plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-buttons/js/jszip.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
 <!-- page script -->
-<script src="{% static 'app_sme12/js/screen_list.js' %}"></script>
+<script src="{% static 'app_sme12/js/report/join_report.js' %}"></script>
 {% endblock %}

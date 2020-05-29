@@ -1,0 +1,229 @@
+{% extends 'app_backend/base.html' %}
+{% load static %}
+
+{% block styles %}
+<!-- overlayScrollbars -->
+
+  
+{% endblock %}
+
+{% block headcontent %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Dash Board(สรุป)</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock%}
+
+{% block content %}
+<section class="content">
+    <div class="container-fluid">        
+        <div class="row">
+            <div class="col-md-8">     
+                <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box">
+                    <span class="info-box-icon bg-info elevation-1"><i class="fas fa-cog"></i></span>  
+                    <div class="info-box-content">
+                      <span class="info-box-text">ภาคการผลิต</span>
+                      <span class="info-box-number">{{register_info.bus_type1}} ราย  </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>  
+                    <div class="info-box-content">
+                      <span class="info-box-text">ภาคบริการค้าส่งค้าปลีก</span>
+                      <span class="info-box-number">{{register_info.bus_type2}} ราย</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->  
+                <!-- fix for small devices only -->
+                <div class="clearfix hidden-md-up"></div>  
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-success elevation-1"><i class="fas fa-tractor"></i></span>  
+                    <div class="info-box-content">
+                      <span class="info-box-text">ภาคธุรกิจเกษตร</span>
+                      <span class="info-box-number">{{register_info.bus_type3}} ราย</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-12 col-sm-6 col-md-3">
+                  <div class="info-box mb-3">
+                    <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                      <div class="info-box-content">
+                      <span class="info-box-text">รวมผู้สมัครทั้งหมด</span>
+                      <span class="info-box-number">{{register_info.bus_total}} ราย</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                  </div>
+                  <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                </div>   
+                <div class="row">
+                  <div class="col-12">
+                    <!-- STACKED BAR CHART -->
+                    <div class="card card-success">
+                      <div class="card-header">
+                        <h3 class="card-title">Stacked Bar Chart</h3>      
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
+                          </button>
+                          <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                        </div>
+                      </div>
+                      <div class="card-body">
+                        <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                          <canvas id="stackedBarChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 807px;" width="807" height="250" class="chartjs-render-monitor"></canvas>
+                        </div>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                </div>           
+            </div>
+            <div class="col-md-2">
+              <!-- 5 สถานประกอบการที่มีคะแนนสูงสุด -->
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">10 สถานประกอบการคะแนนสูงสุด</h5>  
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>                    
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">                 
+                  <div class="row">
+                    <!-- อันดับคะแนนสถานประกอปการ -->
+                    <div class="col-md-12">         
+                      {% for sme in sme_rank %}                             
+                      <div class="progress-group">
+                        #{{ forloop.counter }} <a href="#">{{ sme.enterpise }}</a>
+                        <span class="float-right"><b>{{ sme.score_total }}</b>/1,000</span>                        
+                      </div>
+                      {% endfor %}                     
+                    </div>
+                  </div>                  
+                </div>
+                <!-- ./card-body -->
+                
+                <!-- /.card-footer -->
+              </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-md-2">
+              <!-- 5 จังหวัดที่มีสถานประกอบการได้รับรางวัลมากที่สุด -->
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="card-title">10 จังหวัดที่ได้รับรางวัลมากที่สุด</h5>  
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>                    
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">                 
+                  <div class="row">
+                    <div class="col-md-12">
+
+                      <div class="progress-group">
+                        จังหวัด ก
+                        <span class="float-right"><b>15</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-primary" style="width: 100%"></div>
+                        </div>
+                      </div>
+                      
+                      <!-- /.progress-group -->  
+                      <div class="progress-group">
+                        จังหวัด ข
+                        <span class="float-right"><b>12</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-danger" style="width: 80%"></div>
+                        </div>
+                      </div>  
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        จังหวัด ค
+                        <span class="float-right"><b>10</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-success" style="width: 70%"></div>
+                        </div>
+                      </div>  
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        จังหวัด ง
+                        <span class="float-right"><b>9</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-warning" style="width: 60%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                      <div class="progress-group">
+                        จังหวัด จ
+                        <span class="float-right"><b>7</b>แห่ง</span>
+                        <div class="progress progress-sm">
+                          <div class="progress-bar bg-warning" style="width: 50%"></div>
+                        </div>
+                      </div>
+                      <!-- /.progress-group -->
+                    </div>   
+                    
+                  </div>                  
+                </div>
+                <!-- ./card-body -->
+                
+                <!-- /.card-footer -->
+              </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+</section>
+{% endblock%}
+
+{% block scripts %}
+<!-- overlayScrollbars -->
+
+<!-- OPTIONAL SCRIPTS -->
+
+<!-- PAGE PLUGINS -->
+<!-- jQuery Mapael -->
+
+<!-- ChartJS -->
+<script src="{% static 'adminlte/plugins/chart.js/Chart.min.js' %}"></script>
+
+<!-- PAGE SCRIPTS -->
+
+{% endblock %}

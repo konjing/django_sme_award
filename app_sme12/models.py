@@ -8,6 +8,7 @@ class Employment(models.Model):
     """ LT ตัวเลือกการจ้างงาน """
     business_type = models.ForeignKey(BusinessType, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(verbose_name='จำนวนการจ้างงาน', max_length=100, null=True, blank=True)
+    short_name = models.CharField(verbose_name='จำนวนการจ้างงาน(ย่อ)', max_length=50, null=True, blank=True)
     code = models.CharField(verbose_name='รหัส', max_length=20, null=True, blank=True)
     active = models.BooleanField(verbose_name='สถานะการใช้งาน', default=True)
 
@@ -20,6 +21,7 @@ class Revenue(models.Model):
     """ LT ตัวเลือกรายได้ต่อปี """
     business_type = models.ForeignKey(BusinessType, on_delete=models.SET_NULL, null=True, blank=True)
     name = models.CharField(verbose_name='รายได้ต่อปี', max_length=100, null=True, blank=True)
+    short_name = models.CharField(verbose_name='รายได้ต่อปี(ย่อ)', max_length=50, null=True, blank=True)
     code = models.CharField(verbose_name='รหัส', max_length=20, null=True, blank=True)
     active = models.BooleanField(verbose_name='สถานะการใช้งาน', default=True)
 
@@ -100,6 +102,7 @@ class FormRegister(models.Model):
     promote = models.ManyToManyField(Promote)
     promote_etc = models.CharField(verbose_name='รับข่าวสารจากช่องทางอื่นๆ', max_length=100, null=True, blank=True)
 
+
     # regis_choice = models.ForeignKey(RegisChoice, null=True, blank=True, on_delete=models.SET_NULL)
     # course = models.ForeignKey(Course, null=True, blank=True, on_delete=models.SET_NULL)
     # trainee1_name = models.CharField(verbose_name='ชื่อผู้เข้าอบรมคนที่1', max_length=100, null=True, blank=True)
@@ -112,7 +115,6 @@ class FormRegister(models.Model):
     # trainee2_email = models.EmailField(verbose_name='อีเมลผู้เข้าอบรมคนที่2', null=True, blank=True)
     
     # agreement = models.BooleanField(verbose_name='ยินยอมข้อตกลง', null=True, blank=True)
-    # tsic_no = models.CharField(verbose_name='เลข tsic', max_length=20, null=True, blank=True)
 
     def __str__(self):
         return self.regis_code
@@ -120,11 +122,24 @@ class FormRegister(models.Model):
 
 class FormInterview(models.Model):
     """ ฟอร์มสัมภาษณ์ """
-    interviewer = models.CharField(verbose_name='ผู้สัมภาษณ์', max_length=200)
+    enterpise = models.ForeignKey(Enterpise, blank=True, null=True, on_delete=models.SET_NULL) 
+    score1 = models.IntegerField(verbose_name='หมวดที่ 1 บทบาทของผู้บริหารในการนำองค์กร', null=True, blank=True)
+    score2 = models.IntegerField(verbose_name='หมวดที่ 2. การวางแผนการดำเนินธุรกิจ', null=True, blank=True)
+    score3 = models.IntegerField(verbose_name='หมวดที่ 3. การมุ่งเน้นลูกค้าและตลาด', null=True, blank=True)
+    score4 = models.IntegerField(verbose_name='หมวดที่ 4. การวัด วิเคราะห์และจัดการความรู้', null=True, blank=True)
+    score5 = models.IntegerField(verbose_name='หมวดที่ 5. การบริหารทรัพยากรบุคคล', null=True, blank=True)
+    score6 = models.IntegerField(verbose_name='หมวดที่ 6. การจัดการกระบวนการ', null=True, blank=True)
+    score7 = models.IntegerField(verbose_name='หมวดที่ 7. ผลลัพธ์ทางธุรกิจ', null=True, blank=True)
+    score_total = models.IntegerField(verbose_name='คะแนนรวม', null=True, blank=True)
+    interviewer = models.CharField(verbose_name='ผู้สัมภาษณ์', max_length=200, null=True, blank=True)
     interview_at = models.DateField(verbose_name='วันที่', auto_now_add=True)
+    visit_summary = models.BooleanField(verbose_name='สรุปผลการลงคะแนน', default=True)
 
     def __str__(self):
-        return self.interviewer
+        return '{}'.format(self.enterpise)
+
+    def total_score(self):        
+        return sum([self.score1, self.score2, self.score3, self.score4, self.score5, self.score6, self.score7])
 
 
 class FormSiteVisit(models.Model):
@@ -137,8 +152,10 @@ class FormSiteVisit(models.Model):
     site_score5 = models.IntegerField(verbose_name='หมวดที่ 5. การบริหารทรัพยากรบุคคล', null=True, blank=True)
     site_score6 = models.IntegerField(verbose_name='หมวดที่ 6. การจัดการกระบวนการ', null=True, blank=True)
     site_score7 = models.IntegerField(verbose_name='หมวดที่ 7. ผลลัพธ์ทางธุรกิจ', null=True, blank=True)
+    score_total = models.IntegerField(verbose_name='คะแนนรวม', null=True, blank=True)
     visiter = models.CharField(verbose_name='ผู้ไปเยี่ยมชม', max_length=200, null=True, blank=True)
     visit_at = models.DateField(verbose_name='วันที่', auto_now_add=True)
+    visit_summary = models.BooleanField(verbose_name='สรุปผลการลงคะแนน', default=True)
 
     def __str__(self):
         return '{}'.format(self.enterpise)

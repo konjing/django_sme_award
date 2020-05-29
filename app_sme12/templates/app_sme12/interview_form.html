@@ -1,0 +1,214 @@
+{% extends 'app_backend/base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+    
+{% block styles %}
+<!-- SmartWizard -->
+<link rel="stylesheet" href="{% static 'smart-wizard/dist/css/smart_wizard.min.css' %}">
+<link rel="stylesheet" href="{% static 'smart-wizard/dist/css/smart_wizard_theme_dots.min.css' %}">
+
+<!-- Page CSS -->
+
+{% endblock %}
+
+{% block headcontent %}
+<div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">ให้คะแนนรอบสัมภาษณ์ ({{ ent_obj.name }})</h1>
+        </div><!-- /.col -->
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Starter Page</li>
+          </ol>
+        </div><!-- /.col -->
+      </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+{% endblock%}
+
+
+{% block content %}
+{% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+            <div class="alert alert-danger">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+        <div class="alert alert-danger">
+            <strong>{{ error|escape }}</strong>
+        </div>
+    {% endfor %}
+{% endif %}
+<section class="content">
+    <div class="container-fluid">  
+        <form action="" method="POST">
+        {% csrf_token %}            
+            <!-- Form -->
+            <div class="card card-default">
+                <div class="card-header">
+                <h3 class="card-title">เกณฑ์การพิจารณารางวัลสุดยอด SME แห่งชาติ ครั้งที่ 12</h3>  
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+                </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="{{ form.score1.id_for_label }}" class="col-sm-4 col-form-label">{{ form.score1.label }}</label>
+                                <div class="col-sm-8">                                                
+                                    {% render_field form.score1 class="form-control" min=0 max=120 placeholder="คะแนน 0 - 120" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="{{ form.score2.id_for_label }}" class="col-sm-4 col-form-label">{{ form.score2.label }}</label>
+                                <div class="col-sm-8">                                                
+                                    {% render_field form.score2 class="form-control" min=0 max=120 placeholder="คะแนน 0 - 120" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="{{ form.score3.id_for_label }}" class="col-sm-4 col-form-label">{{ form.score3.label }}</label>
+                                <div class="col-sm-8">                                                
+                                    {% render_field form.score3 class="form-control" min=0 max=120 placeholder="คะแนน 0 - 120" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="{{ form.score4.id_for_label }}" class="col-sm-4 col-form-label">{{ form.score4.label }}</label>
+                                <div class="col-sm-8">                                                
+                                    {% render_field form.score4 class="form-control" min=0 max=100 placeholder="คะแนน 0 - 100" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="{{ form.score5.id_for_label }}" class="col-sm-4 col-form-label">{{ form.score5.label }}</label>
+                                <div class="col-sm-8">                                                
+                                    {% render_field form.score5 class="form-control" min=0 max=140 placeholder="คะแนน 0 - 140" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="{{ form.score6.id_for_label }}" class="col-sm-4 col-form-label">{{ form.score6.label }}</label>
+                                <div class="col-sm-8">                                                
+                                    {% render_field form.score6 class="form-control" min=0 max=160 placeholder="คะแนน 0 - 160" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>     
+                    <div class="row">
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="{{ form.score7.id_for_label }}" class="col-sm-4 col-form-label">{{ form.score7.label }}</label>
+                                <div class="col-sm-8">                                                
+                                    {% render_field form.score7 class="form-control" min=0 max=240 placeholder="คะแนน 0 - 240" %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">                        
+                            <div class="form-group row">
+                                <label for="" class="col-sm-4 col-form-label"></label>
+                                <div class="col-sm-8">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer" style="display: block;">              
+                </div>
+                <!-- /.card-footer -->
+            </div>
+            <input type="submit" name="submit">
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block scripts %}
+<!-- SmartWizard -->
+<script src="{% static 'smart-wizard/dist/js/jquery.smartWizard.min.js' %}"></script>
+<!-- jquery-validation -->
+<script src="{% static 'adminlte/plugins/jquery-validation/jquery.validate.min.js' %}"></script>
+<script src="{% static 'adminlte/plugins/jquery-validation/additional-methods.min.js' %}"></script>
+
+<!-- InputMask -->
+<script src="{% static 'adminlte/plugins/inputmask/min/jquery.inputmask.bundle.min.js' %}"></script>
+
+<!-- page script -->
+
+{% endblock %}

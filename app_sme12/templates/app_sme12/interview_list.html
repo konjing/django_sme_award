@@ -111,27 +111,55 @@
                     <th></th>  
                     <th class="reffilter">เลขสมัคร</th>  
                     <th class="reffilter">บริษัทย์</th>
-                    <th class="reffilter">รหัส สสว.</th>                    
-                    <th class="reffilter">รหัส SME CONNEXT</th>  
-                    <th class="reffilter">จังหวัด</th>
-                    <th class="reffilter">รหัสไปรษณีย์</th>
+                    <th class="reffilter">คะแนนรวม</th>
+                    <th class="reffilter">หมวดที่1(120)</th>                    
+                    <th class="reffilter">หมวดที่2(120)</th>  
+                    <th class="reffilter">หมวดที่3(120)</th>
+                    <th class="reffilter">หมวดที่4(100)</th>
+                    <th class="reffilter">หมวดที่5(140)</th>
+                    <th class="reffilter">หมวดที่6(160)</th>
+                    <th class="reffilter">หมวดที่7(240)</th>
                     <th class="reffilter">ประเภทกิจการ</th>   
-                    <th></th>                    
+                    <th>ฟอร์ม</th>                    
+                    <th>ข้อมูล</th>                    
                   </tr>
                   </thead>
                   <tbody>
                   {% for register in queryset %}
+                  {% if register.form_interview.visit_summary == True %}  
                   <tr>
-                    <td><input type="checkbox"  name="regis_id" value="{{ register.id }}" ></td>  
+                  {% else %}
+                  <tr class="table-danger">
+                  {% endif%}
+                    {% if register.form_interview is None %}
+                      <td></td>  
+                    {% else %}
+                      <td><input type="checkbox"  name="regis_id" value="{{ register.id }}" ></td>  
+                    {% endif %} 
                     <td>{{ register.form_register }}</td>
-                    <td>{{ register.enterpise.name }}</td>   
-                    <td>{{ register.sme_code }}</td>
-                    <td>{{ register.sme_connext_code }}</td>  
-                    <td>{{ register.enterpise.province }}</td>
-                    <td>{{ register.enterpise.postcode }}</td>
+                    <td>{{ register.enterpise.name }}</td>
+                    <td>{{ register.form_interview.total_score }}</td>
+                    <td>{{ register.form_interview.score1 }}</td>
+                    <td>{{ register.form_interview.score2 }}</td>
+                    <td>{{ register.form_interview.score3 }}</td>
+                    <td>{{ register.form_interview.score4 }}</td>
+                    <td>{{ register.form_interview.score5 }}</td>
+                    <td>{{ register.form_interview.score6 }}</td>
+                    <td>{{ register.form_interview.score7 }}</td>
                     <td>{{ register.enterpise.business_type }}</td>  
+                    {% if register.form_interview is None %}
+                      <td><a href="{% url 'interview-form' register.enterpise.id register.id %}">
+                        <i class="far fa-file-alt fa-2x" title="ให้คะแนน"></i>
+                        </a>
+                      </td>   
+                    {% else %}
+                    <td><a href="{% url 'interview-update' register.form_interview.id %}">
+                      <i class="far fa-file-alt fa-2x" title="แก้คะแนน"></i>
+                      </a>
+                    </td>  
+                    {% endif %}
                     <td><a href="{% url 'sme-info' register.id %}">
-                          <button type="button" class="btn btn-info">ข้อมูล</button>
+                          <i class="fas fa-search fa-2x" title="ข้อมูล"></i>
                         </a>
                     </td>                    
                   </tr> 
@@ -142,11 +170,16 @@
                     <th></th>  
                     <th class="filter">เลขสมัคร</th>  
                     <th class="filter">บริษัทย์</th> 
-                    <th class="filter">รหัส สสว.</th>                    
-                    <th class="filter">รหัส SME CONNEXT</th>   
-                    <th class="filter">จังหวัด</th>
-                    <th class="filter">รหัสไปรษณีย์</th>
+                    <th class="filter">คะแนนรวม</th>
+                    <th class="filter">หมวดที่1(120)</th>                    
+                    <th class="filter">หมวดที่2(120)</th>   
+                    <th class="filter">หมวดที่3(120)</th>
+                    <th class="filter">หมวดที่4(100)</th>
+                    <th class="filter">หมวดที่5(140)</th>
+                    <th class="filter">หมวดที่6(160)</th>
+                    <th class="filter">หมวดที่7(240)</th>
                     <th class="filter">ประเภทกิจการ</th>   
+                    <th></th>   
                     <th></th>                    
                   </tr>
                   </tfoot>

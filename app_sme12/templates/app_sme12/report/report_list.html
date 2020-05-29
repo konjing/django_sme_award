@@ -1,0 +1,126 @@
+{% extends 'app_backend/base.html' %} 
+{% load static %} 
+{% block styles %}
+<!-- Ionicons -->
+<link
+  rel="stylesheet"
+  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+/>
+<!-- DataTables -->
+
+{% endblock %} 
+{% block headcontent %}
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">รายงาน</h1>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Starter Page</li>
+        </ol>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</div>
+{% endblock%} 
+{% block content %}
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <!-- <div class="card-header">
+            <h3 class="card-title">ขั้นตอนการรับสมัคร</h3>
+        </div> -->
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th class="">รายงาน</th>
+                <th style="width: 30px;">สมัครประกวด</th>
+                <th style="width: 30px;">ตรวจประเมิน</th>
+                <th style="width: 30px;">สัมภาษณ์</th>
+                <th style="width: 30px;">Site visit</th>
+                <th style="width: 30px;">สรุปรวม</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>สรุปจำนวนผู้สมัคร</td>
+                <td><a href="{% url 'total-report' 'regis' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'total-report' 'screen' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'total-report' 'interview' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'total-report' 'sitevisit' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'total-summary' %}" target="_blank">รายงาน</a></td>
+              </tr>
+              <tr>
+                <td>สรุปจำนวนผู้สมัคร ตามจังหวัดที่ตั้งธุรกิจ</td>
+                <td><a href="{% url 'province-report' 'regis' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'province-report' 'screen' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'province-report' 'interview' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'province-report' 'sitevisit' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'province-summary' %}" target="_blank">รายงาน</a></td>
+              </tr>
+              <tr>
+                <td>สรุปจำนวนผู้สมัคร ตามรูปแบบกิจการ</td>
+                <td><a href="{% url 'businessmodel-report' 'regis' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businessmodel-report' 'screen' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businessmodel-report' 'interview' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businessmodel-report' 'sitevisit' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businessmodel-summary' %}" target="_blank">รายงาน</a></td>
+              </tr>
+              <tr>
+                <td>สรุปจำนวนผู้สมัคร ตามประเภทกิจการ</td>
+                <td><a href="{% url 'businesstype-report' 'regis' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businesstype-report' 'screen' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businesstype-report' 'interview' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businesstype-report' 'sitevisit' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businesstype-summary' %}" target="_blank">รายงาน</a></td>
+              </tr>
+              <tr>
+                <td>สรุปจำนวนผู้สมัคร ตามกลุ่มธุรกิจ</td>
+                <td><a href="{% url 'businessgroup-report' 'regis' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businessgroup-report' 'screen' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businessgroup-report' 'interview' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businessgroup-report' 'sitevisit' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'businessgroup-summary' %}" target="_blank">รายงาน</a></td>
+
+              </tr>
+              <tr>
+                <td>สรุปจำนวนผู้สมัครตาม TSIC</td>
+                <td><a href="{% url 'tsic-report' 'regis' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'tsic-report' 'screen' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'tsic-report' 'interview' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'tsic-report' 'sitevisit' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'tsic-summary' %}" target="_blank">รายงาน</a></td>
+              </tr>
+              <tr>
+                <td>รายชื่อผู้เข้าร่วมประกวด</td>
+                <td><a href="{% url 'smeaward-report' 'regis' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'smeaward-report' 'screen' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'smeaward-report' 'interview' %}" target="_blank">รายงาน</a></td>
+                <td><a href="{% url 'smeaward-report' 'sitevisit' %}" target="_blank">รายงาน</a></td>
+                <td><a href="#"></a></td>
+              </tr>                         
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </div>    
+  </div>
+  <!-- /.row -->
+</section>
+{% endblock%} 
+{% block scripts %}
+<!-- DataTables -->
+
+<!-- page script -->
+{% endblock %}

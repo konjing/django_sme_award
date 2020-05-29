@@ -1,0 +1,85 @@
+export{% extends 'app_backend/base.html' %} 
+{% load static %} 
+{% block styles %}
+<!-- Ionicons -->
+<link
+  rel="stylesheet"
+  href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+/>
+<!-- DataTables -->
+
+{% endblock %} 
+{% block headcontent %}
+<div class="content-header">
+  <div class="container-fluid">
+    <div class="row mb-2">
+      <div class="col-sm-6">
+        <h1 class="m-0 text-dark">รายงาน</h1>
+      </div>
+      <!-- /.col -->
+      <div class="col-sm-6">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active">Starter Page</li>
+        </ol>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </div>
+  <!-- /.container-fluid -->
+</div>
+{% endblock%} 
+{% block content %}
+<section class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <!-- <div class="card-header">
+            <h3 class="card-title">ขั้นตอนการรับสมัคร</h3>
+        </div> -->
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="">รายการ Export ข้อมูล</th>
+                    <th >สมัครประกวด</th>
+                    <th >ตรวจประเมิน</th>
+                    <th >สัมภาษณ์</th>
+                    <th >Site visit</th>
+                    <th >สรุปรวม</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>รายชื่อผู้เข้าร่วมประกวด</td>
+                    <td><a href="{% url 'smeaward-report' 'regis' %}" target="_blank">รายงาน</a></td>
+                    <td><a href="{% url 'smeaward-report' 'screen' %}" target="_blank">รายงาน</a></td>
+                    <td><a href="{% url 'smeaward-report' 'interview' %}" target="_blank">รายงาน</a></td>
+                    <td><a href="{% url 'smeaward-report' 'sitevisit' %}" target="_blank">รายงาน</a></td>
+                    <td><a href="#"></a></td>
+                </tr>  
+                <tr>
+                    <td>สรุปประโยชน์ที่ผู้ประกวดได้รับ</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>                                     
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+    </div>    
+  </div>
+  <!-- /.row -->
+</section>
+{% endblock%} 
+{% block scripts %}
+<!-- DataTables -->
+
+<!-- page script -->
+{% endblock %}
